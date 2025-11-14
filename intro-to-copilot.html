@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Copilot: Beyond the Basics</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/black.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/monokai.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal pre { width: 100%; }
+        .reveal pre code { max-height: 500px; }
+        .reveal .slides section .fragment.highlight-current-blue { opacity: 1; visibility: inherit; }
+        .reveal .slides section .fragment.highlight-current-blue.current-fragment { color: #42affa; }
+        .speaker-note { font-size: 0.7em; color: #888; font-style: italic; margin-top: 20px; }
+        .demo-badge { background-color: #28a745; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.6em; }
+        .time-badge { background-color: #6c757d; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.6em; }
+        .comparison-table { font-size: 0.7em; }
+        .comparison-table td:first-child { background-color: #f8d7da; }
+        .comparison-table td:last-child { background-color: #d4edda; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Title Slide -->
+            <section data-background-gradient="linear-gradient(to bottom, #1a1a1a, #2d2d2d)">
+                <h1>GitHub Copilot</h1>
+                <h3>Beyond the Basics</h3>
+                <p>Advanced Features for Developers</p>
+                <br>
+                <p style="font-size: 0.6em;">
+                    <a href="https://developer.aa.com/access/github-copilot" target="_blank">Get Your License</a>
+                </p>
+            </section>
+
+            <!-- Section 1: Getting Started -->
+            <section>
+                <section data-background-color="#2c3e50">
+                    <h2>1. Getting Started</h2>
+                    <h3>IDE Integration</h3>
+                    <span class="time-badge">5-7 minutes</span>
+                </section>
+
+                <section>
+                    <h3>Supported IDEs</h3>
+                    <ul>
+                        <li class="fragment"><strong>VS Code</strong> - Most feature-rich integration</li>
+                        <li class="fragment"><strong>Visual Studio</strong> - Full support for .NET</li>
+                        <li class="fragment"><strong>IntelliJ IDEA</strong> - Java/Kotlin optimized</li>
+                        <li class="fragment"><strong>Others</strong> - Neovim, JetBrains suite</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Chat Modes: Ask vs Agent</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.8em;">
+                        <div class="fragment">
+                            <h4 style="color: #42affa;">Ask Mode</h4>
+                            <ul style="font-size: 0.85em;">
+                                <li>Single-turn conversations</li>
+                                <li>Fast, focused answers</li>
+                                <li>Syntax questions</li>
+                                <li>Quick explanations</li>
+                            </ul>
+                            <p style="font-size: 0.7em; color: #888;">Example: "How do I parse JSON?"</p>
+                        </div>
+                        <div class="fragment">
+                            <h4 style="color: #f39c12;">Agent Mode</h4>
+                            <ul style="font-size: 0.85em;">
+                                <li>Multi-step problem solving</li>
+                                <li>Reads files & searches code</li>
+                                <li>Makes edits autonomously</li>
+                                <li>Complex implementations</li>
+                            </ul>
+                            <p style="font-size: 0.7em; color: #888;">Example: "Refactor to async/await"</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Model Selection</h3>
+                    <ul>
+                        <li class="fragment"><strong>Default:</strong> Claude Sonnet 4.x
+                            <ul style="font-size: 0.8em;">
+                                <li>Better code understanding</li>
+                                <li>Complex reasoning</li>
+                            </ul>
+                        </li>
+                        <li class="fragment"><strong>Alternative:</strong> GPT-4.1
+                            <ul style="font-size: 0.8em;">
+                                <li>Creative solutions</li>
+                                <li>Specific use cases</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Section 2: Examples -->
+            <section>
+                <section data-background-color="#16a085">
+                    <h2>2. Practical Examples</h2>
+                    <span class="time-badge">15-20 minutes</span>
+                </section>
+
+                <section>
+                    <h3>Example 1: Generate README</h3>
+                    <span class="demo-badge">DEMO</span>
+                    <pre><code class="language-markdown" data-trim>
+Create a comprehensive README.md for this project. Include:
+- Project overview and purpose
+- Installation instructions
+- Usage examples with code snippets
+- API documentation
+- Contributing guidelines
+- License information
+
+Analyze the codebase to understand the tech stack.
+                    </code></pre>
+                    <p class="fragment" style="font-size: 0.8em;">✨ Copilot analyzes your entire codebase for context</p>
+                </section>
+
+                <section>
+                    <h3>Example 2: Project Assessment</h3>
+                    <pre><code class="language-markdown" data-trim>
+Analyze this codebase and provide:
+1. Architecture overview (patterns, structure)
+2. Technology stack and dependencies
+3. Code quality assessment
+4. Security concerns or vulnerabilities
+5. Technical debt areas
+6. Recommended improvements prioritized by impact
+                    </code></pre>
+                    <p class="fragment" style="font-size: 0.8em;">Perfect for inheriting legacy code or planning refactors</p>
+                </section>
+
+                <section>
+                    <h3>Example 3: Test Generation</h3>
+                    <span class="demo-badge">DEMO</span>
+                    <div style="font-size: 0.65em;">
+                        <p><strong>Basic Prompt:</strong></p>
+                        <pre><code class="language-markdown" data-trim>
+Generate unit tests for the UserService class.
+Include happy path, edge cases, and error handling.
+Use Jest framework.
+                        </code></pre>
+                        
+                        <p class="fragment" style="margin-top: 15px;"><strong>Advanced Prompt:</strong></p>
+                        <pre class="fragment"><code class="language-markdown" data-trim>
+Create comprehensive test suite for UserService:
+- Unit tests with 80%+ coverage
+- Mock external dependencies (database, APIs)
+- Test data factories for fixtures
+- Follow AAA pattern (Arrange, Act, Assert)
+- Include negative test cases
+- Use Jest with async/await
+                        </code></pre>
+
+                        <p class="fragment" style="margin-top: 15px;"><strong>Integration Test Prompt:</strong></p>
+                        <pre class="fragment"><code class="language-markdown" data-trim>
+Generate integration tests for /api/users endpoints:
+- Test full request/response cycle
+- Use test database with cleanup
+- Validate authentication middleware
+- Check error responses and status codes
+- Use Supertest library
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Example 4: Meta-Prompting</h3>
+                    <p style="font-size: 0.9em;">Let Copilot write better prompts for you!</p>
+                    <pre><code class="language-markdown" data-trim>
+I need to ask Copilot to create a RESTful API 
+with authentication. Write a detailed prompt that 
+will help Copilot understand:
+- Tech stack (Node.js/Express)
+- Auth requirements (JWT with refresh tokens)
+- Database schema
+- Error handling standards
+- API documentation needs
+                    </code></pre>
+                    <p class="fragment" style="font-size: 0.8em;">🎯 Copilot knows what context it needs!</p>
+                </section>
+
+                <section>
+                    <h3>Example 5: Code Review</h3>
+                    <pre><code class="language-markdown" data-trim>
+Review this code for:
+1. Bugs and logic errors
+2. Performance issues
+3. Security vulnerabilities
+4. Best practice violations
+5. Readability and maintainability
+6. Missing error handling
+
+Suggest specific improvements with code examples.
+                    </code></pre>
+                    <p class="fragment" style="font-size: 0.8em;">Use before commits or for PR reviews</p>
+                </section>
+
+                <section>
+                    <h3>Example 6: Debugging with Context</h3>
+                    <span class="demo-badge">DEMO</span>
+                    <div style="font-size: 0.7em;">
+                        <pre><code class="language-markdown" data-trim>
+Analyze this error and suggest fixes:
+
+Error: Cannot read property 'user' of undefined
+    at UserController.getProfile (src/controllers/user.js:45)
+
+Context:
+- Express API endpoint: GET /api/users/:id/profile
+- Uses JWT authentication middleware
+- Error occurs intermittently (5% of requests)
+
+Provide:
+1. Root cause analysis
+2. Specific code fix
+3. Prevention strategies
+4. Monitoring improvements
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Debugging: What Copilot Identifies</h3>
+                    <ul style="font-size: 0.85em;">
+                        <li class="fragment">🔍 Race conditions and timing issues</li>
+                        <li class="fragment">✅ Missing null checks or validation</li>
+                        <li class="fragment">🔐 Authentication/session problems</li>
+                        <li class="fragment">💾 Database query issues</li>
+                        <li class="fragment">⚡ Async/await misuse</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Example 6: Performance Debugging</h3>
+                    <p style="font-size: 0.85em;">Advanced debugging for production issues</p>
+                    <pre style="font-size: 0.6em;"><code class="language-text" data-trim>
+I'm seeing performance degradation in production.
+Analyze this code and identify bottlenecks:
+
+[paste code]
+
+Metrics:
+- Response time increased from 200ms to 3s
+- CPU usage: 80%+
+- Started after deploying feature X
+
+Suggest optimizations with benchmark comparisons.
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Example 7: API Migration</h3>
+                    <p style="font-size: 0.85em;">Express 4 → Express 5 + TypeScript</p>
+                    <pre style="font-size: 0.5em;"><code class="language-markdown" data-trim>
+Migrate this Express 4 JavaScript API to Express 5 with TypeScript:
+
+Requirements:
+1. Convert all routes to TypeScript with proper types
+2. Update deprecated Express methods
+3. Add request/response typing
+4. Implement proper error handling middleware
+5. Maintain backward compatibility with existing clients
+6. Add input validation with express-validator
+
+Current structure:
+- 15 route files
+- MongoDB with Mongoose
+- JWT authentication
+- REST endpoints
+
+Provide migration plan and convert the UserController as example.
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Example 7: Migration Result</h3>
+                    <p style="font-size: 0.85em;">Express 4 → Express 5 + TypeScript</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.5em;">
+                        <div>
+                            <h4>Before (JavaScript)</h4>
+                            <pre><code class="language-javascript" data-trim>
+const express = require('express');
+const router = express.Router();
+
+router.get('/users/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+                            </code></pre>
+                        </div>
+                        <div>
+                            <h4>After (TypeScript)</h4>
+                            <pre><code class="language-typescript" data-trim>
+import { Router, Request, Response } from 'express';
+
+interface UserParams { id: string; }
+
+router.get('/users/:id',
+  param('id').isMongoId(),
+  async (
+    req: Request&lt;UserParams&gt;,
+    res: Response
+  ): Promise&lt;void&gt; => {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      res.status(404).json({ error: 'Not found' });
+      return;
+    }
+    res.json(user);
+  }
+);
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Example 7: Other Migration Scenarios</h3>
+                    <p style="font-size: 0.85em;">Copilot handles various migration types</p>
+                    <ul style="font-size: 0.8em;">
+                        <li class="fragment">REST to GraphQL conversion</li>
+                        <li class="fragment">jQuery to React/Vue/Angular</li>
+                        <li class="fragment">Class components to React Hooks</li>
+                        <li class="fragment">Upgrading authentication libraries (Passport, Auth0)</li>
+                        <li class="fragment">Database ORM changes (Sequelize to Prisma, TypeORM to Drizzle)</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Example 7: Breaking Changes Analysis</h3>
+                    <pre style="font-size: 0.6em;"><code class="language-text" data-trim>
+Analyze this codebase for breaking changes when upgrading from 
+[Library X v1] to [Library X v2]. Provide:
+1. List of breaking changes affecting our code
+2. Required code modifications
+3. Migration script if needed
+4. Testing strategy
+                    </code></pre>
+                    <p class="fragment" style="font-size: 0.8em;">Perfect for planning major version upgrades</p>
+                </section>
+
+                <section>
+                    <h3>Example 8: Regex & String Parsing</h3>
+                    <p style="font-size: 0.85em;">Log file parsing with regex</p>
+                    <pre style="font-size: 0.5em;"><code class="language-text" data-trim>
+Create a regex pattern and parser function to extract data from these logs:
+
+Sample log format:
+[2025-10-21 14:32:15] INFO [UserService] User login: user@aa.com IP: 192.168.1.100 - Success
+[2025-10-21 14:32:18] ERROR [PaymentService] Transaction failed: txn_123abc amount: $49.99 - Insufficient funds
+[2025-10-21 14:33:01] WARN [EmailService] Rate limit approaching: 950/1000 emails sent
+
+Extract:
+- Timestamp
+- Log level
+- Service name
+- Message details
+- Key-value pairs (user, IP, transaction ID, amount)
+
+Return as structured JSON.
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Example 8: Parsing Result</h3>
+                    <p style="font-size: 0.85em;">Copilot excels at complex patterns!</p>
+                    <pre><code class="language-javascript" data-trim data-line-numbers="1-4|6-18">
+// Prompt: Parse AA log files
+const logPattern = /^\[(?&lt;timestamp&gt;[\d\-: ]+)\] 
+  (?&lt;level&gt;\w+) \[(?&lt;service&gt;\w+)\] 
+  (?&lt;message&gt;.+)$/;
+
+function parseLogEntry(logLine) {
+  const match = logLine.match(logPattern);
+  if (!match) return null;
+
+  const { timestamp, level, service, message } = match.groups;
+  
+  return {
+    timestamp: new Date(timestamp),
+    level,
+    service,
+    message
+  };
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Example 8: Data Validation</h3>
+                    <p style="font-size: 0.85em;">Airline-specific validation patterns</p>
+                    <pre style="font-size: 0.5em;"><code class="language-text" data-trim>
+Create validation functions with regex for:
+1. Airline booking reference (AA format: 6 alphanumeric characters)
+2. Flight numbers (AA1234, AA 1234, AA-1234)
+3. Frequent flyer numbers (AA + 7-9 digits)
+
+Include test cases and error messages.
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Example 8: Validation Result</h3>
+                    <pre style="font-size: 0.45em;"><code class="language-javascript" data-trim>
+function isValidBookingReference(ref) {
+  const pattern = /^[A-Z0-9]{6}$/i;
+  return pattern.test(ref);
+}
+
+function parseFlightNumber(input) {
+  const pattern = /^([A-Z]{2})[\s\-]?(\d{1,4})$/i;
+  const match = input.match(pattern);
+  
+  if (!match) return null;
+  
+  return {
+    carrier: match[1].toUpperCase(),
+    number: match[2].padStart(4, '0'),
+    formatted: `${match[1].toUpperCase()}${match[2]}`
+  };
+}
+
+// Test cases
+console.assert(isValidBookingReference('ABC123') === true);
+console.assert(isValidBookingReference('abc123') === true);
+console.assert(isValidBookingReference('ABC12') === false);
+
+console.assert(parseFlightNumber('AA1234').formatted === 'AA1234');
+console.assert(parseFlightNumber('AA 234').number === '0234');
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Example 8: Pro Tip</h3>
+                    <p style="font-size: 0.85em;">Ask Copilot to explain complex regex!</p>
+                    <pre style="font-size: 0.6em;"><code class="language-text" data-trim>
+Explain this regex in plain English and identify any issues:
+/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+                    </code></pre>
+                    <p class="fragment" style="font-size: 0.7em; margin-top: 20px;">
+                        <strong>Copilot Response:</strong><br>
+                        "This regex matches strings that are at least 8 characters long, 
+                        contain at least one letter and one digit, but only allows letters 
+                        and digits (no special characters). Issue: It doesn't enforce an 
+                        uppercase letter requirement if that's needed for password complexity."
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Example 9: Dockerization</h3>
+                    <span class="demo-badge">DEMO</span>
+                    <div style="font-size: 0.7em;">
+                        <pre><code class="language-markdown" data-trim>
+Create Docker setup for this Node.js/Express application:
+
+Requirements:
+- Multi-stage build for optimization
+- Non-root user for security
+- Health check endpoint
+- Environment variable configuration
+- Development vs Production builds
+- Docker Compose with PostgreSQL and Redis
+
+Project structure:
+- Node.js 20
+- Express API
+- PostgreSQL database
+- Redis for caching
+- Runs on port 3000
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Example 9: Dockerization</h3>
+                    <span class="demo-badge">DEMO</span>
+                    <pre style="font-size: 0.45em;"><code class="language-dockerfile" data-trim>
+# Multi-stage build for Node.js app
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+COPY . .
+
+FROM node:20-alpine
+RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
+WORKDIR /app
+COPY --from=builder --chown=nodejs:nodejs /app ./
+USER nodejs
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD node -e "require('http').get('http://localhost:3000/health')"
+
+CMD ["node", "server.js"]
+                    </code></pre>
+                    <p class="fragment" style="font-size: 0.7em;">✅ Security best practices included automatically!</p>
+                </section>
+
+                <section>
+                    <h3>Example 9: Docker Compose</h3>
+                    <p style="font-size: 0.85em;">Complete stack with database and cache</p>
+                    <pre style="font-size: 0.35em;"><code class="language-yaml" data-trim>
+version: '3.8'
+services:
+  app:
+    build: .
+    ports: ["3000:3000"]
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/mydb
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [app-network]
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_DB: mydb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+    networks: [app-network]
+
+  redis:
+    image: redis:7-alpine
+    networks: [app-network]
+
+networks:
+  app-network:
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Example 9: CI/CD Integration</h3>
+                    <pre style="font-size: 0.55em;"><code class="language-text" data-trim>
+Extend the Docker setup with:
+1. GitHub Actions workflow for building and pushing to registry
+2. Kubernetes deployment manifests (deployment, service, ingress)
+3. Helm chart for configurable deployments
+4. Security scanning (Trivy/Snyk)
+5. Multi-architecture builds (amd64/arm64)
+
+Registry: Azure Container Registry
+Cluster: AKS (Azure Kubernetes Service)
+                    </code></pre>
+                    <p class="fragment" style="font-size: 0.75em;">🚀 Copilot can generate complete CI/CD pipelines!</p>
+                </section>
+            </section>
+
+            <!-- Section 3: Reusable Assets -->
+            <section>
+                <section data-background-color="#8e44ad">
+                    <h2>3. Building Reusable Assets</h2>
+                    <span class="time-badge">10 minutes</span>
+                </section>
+
+                <section>
+                    <h3>Community Resources</h3>
+                    <p style="font-size: 0.9em;">
+                        <a href="https://github.com/github/awesome-copilot" target="_blank">
+                            github.com/github/awesome-copilot
+                        </a>
+                    </p>
+                    <p style="font-size: 0.8em;">Community-contributed instructions, prompts, and configurations</p>
+                    <ul style="font-size: 0.8em;">
+                        <li class="fragment">Reusable prompt templates</li>
+                        <li class="fragment">Custom instructions for frameworks</li>
+                        <li class="fragment">Chat modes for specific tasks</li>
+                        <li class="fragment">Best practices from the community</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Custom Assets Types</h3>
+                    <div style="font-size: 0.8em;">
+                        <ol>
+                            <li class="fragment"><strong>.prompt</strong> - Reusable prompt templates</li>
+                            <li class="fragment"><strong>.instructions.md</strong> - Guide Copilot's behavior</li>
+                            <li class="fragment"><strong>.chatmode.md</strong> - Specialized chat modes</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Recommended Workspace Structure</h3>
+                    <pre style="font-size: 0.6em;"><code class="language-plaintext" data-trim>
+your-project/
+├── .github/
+│   └── copilot/
+│       ├── prompts/
+│       │   ├── create-readme.prompt
+│       │   ├── generate-tests.prompt
+│       │   └── code-review.prompt
+│       ├── instructions/
+│       │   ├── testing.instructions.md
+│       │   └── api-design.instructions.md
+│       └── chatmodes/
+│           └── architect.chatmode.md
+└── README.md
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Team Benefits</h3>
+                    <ul style="font-size: 0.85em;">
+                        <li class="fragment">✅ Consistent code generation across team</li>
+                        <li class="fragment">📚 Codified best practices</li>
+                        <li class="fragment">🚀 Faster onboarding</li>
+                        <li class="fragment">⏱️ Reduced prompt iteration time</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Section 4: Best Practices -->
+            <section>
+                <section data-background-color="#c0392b">
+                    <h2>4. Best Practices & Tips</h2>
+                    <span class="time-badge">5 minutes</span>
+                </section>
+
+                <section>
+                    <h3>Prompt Engineering: Be Specific</h3>
+                    <div style="font-size: 0.8em;">
+                        <p>❌ <span style="color: #e74c3c;">Vague:</span> "Make this better"</p>
+                        <p>✅ <span style="color: #27ae60;">Specific:</span> "Refactor this function to use async/await, add input validation, and include JSDoc comments"</p>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Provide Context</h3>
+                    <pre style="font-size: 0.55em;"><code class="language-markdown" data-trim>
+I'm working on a Node.js microservice that processes 
+payment webhooks. The current error handling doesn't 
+distinguish between retryable and permanent failures. 
+
+Update the code to:
+- Retry transient errors (network, timeout) with 
+  exponential backoff
+- Log permanent errors (auth, validation) and alert
+- Use dead letter queue for failed attempts after 3 retries
+                    </code></pre>
+                    <p class="fragment" style="font-size: 0.8em;">More context = Better results</p>
+                </section>
+
+                <section>
+                    <h3>When to Use Each Mode</h3>
+                    <table style="font-size: 0.6em; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Task Type</th>
+                                <th>Mode</th>
+                                <th>Why</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment">
+                                <td>Quick syntax question</td>
+                                <td>Ask</td>
+                                <td>Faster, no file access needed</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Refactoring multiple files</td>
+                                <td>Agent</td>
+                                <td>Needs codebase context</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Explaining a concept</td>
+                                <td>Ask</td>
+                                <td>Straightforward response</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Debugging complex issue</td>
+                                <td>Agent</td>
+                                <td>Can search and analyze</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Code snippet</td>
+                                <td>Ask</td>
+                                <td>Simple, contained</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>Security Considerations</h3>
+                    <ul style="font-size: 0.85em;">
+                        <li class="fragment">⚠️ Review all generated code before committing</li>
+                        <li class="fragment">🔐 Don't share sensitive data in prompts</li>
+                        <li class="fragment">✅ Validate security-critical code</li>
+                        <li class="fragment">🧪 Test generated code thoroughly</li>
+                        <li class="fragment">📜 Verify licensing for generated code</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Section 5: Next Steps -->
+            <section>
+                <section data-background-color="#27ae60">
+                    <h2>5. Next Steps & Resources</h2>
+                </section>
+
+                <section>
+                    <h3>Hands-On Practice</h3>
+                    <p style="font-size: 0.85em;">Use Copilot to:</p>
+                    <ul style="font-size: 0.75em;">
+                        <li class="fragment">Create a README.md</li>
+                        <li class="fragment">Perform a project assessment - create <em>hangar-improvement</em> stories in ADO</li>
+                        <li class="fragment">Create a <code>code standard</code> and save it as a markdown file in the project
+                            <ul style="font-size: 0.9em; margin-top: 10px;">
+                                <li>Use Copilot to enforce these standards in the IDE, before commit and during build</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">Generate and review tests for one module</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Create Custom Prompts</h3>
+                    <ul style="font-size: 0.8em;">
+                        <li class="fragment">Create a <code>prompts</code> folder in your project <code>.github</code></li>
+                        <li class="fragment">Save prompts that work well for your team</li>
+                        <li class="fragment">Share successful patterns with colleagues</li>
+                        <li class="fragment">Iterate based on real usage</li>
+                        <li class="fragment">Use Agent mode to refactor issues identified in project assessment or CodeScene</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Additional Resources</h3>
+                    <ul style="font-size: 0.75em;">
+                        <li>📚 <a href="https://docs.github.com/copilot" target="_blank">GitHub Copilot Docs</a></li>
+                        <li>⭐ <a href="https://github.com/github/awesome-copilot" target="_blank">Awesome Copilot</a></li>
+                        <li>🎫 <a href="https://developer.aa.com/access/github-copilot" target="_blank">Internal AA License</a></li>
+                        <li>💡 <strong>Community Patterns:</strong> Browse the awesome-copilot repo for inspiration</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Questions to Explore</h3>
+                    <ul style="font-size: 0.85em;">
+                        <li class="fragment">How can Copilot help with your specific tech stack?</li>
+                        <li class="fragment">What repetitive tasks could you automate with better prompts?</li>
+                        <li class="fragment">Which team coding standards could become Copilot instructions?</li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- Quick Reference -->
+            <section>
+                <section data-background-color="#34495e">
+                    <h2>Quick Reference</h2>
+                    <p style="font-size: 0.8em;">Prompt Templates Cheat Sheet</p>
+                </section>
+
+                <section>
+                    <h3>Common Prompt Templates</h3>
+                    <div style="font-size: 0.6em; text-align: left;">
+                        <p><strong>Documentation:</strong></p>
+                        <code>Create comprehensive documentation for [file/module]: Purpose, API reference, usage examples</code>
+                        
+                        <p style="margin-top: 20px;"><strong>Code Review:</strong></p>
+                        <code>Review this code for: bugs, security issues, performance, best practices</code>
+                        
+                        <p style="margin-top: 20px;"><strong>Test Generation:</strong></p>
+                        <code>Generate [unit/integration] tests: Cover happy path and edge cases</code>
+                        
+                        <p style="margin-top: 20px;"><strong>Refactoring:</strong></p>
+                        <code>Refactor this code to: [improvements]. Maintain functionality and add tests.</code>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Thank You -->
+            <section data-background-gradient="linear-gradient(to bottom, #1a1a1a, #2d2d2d)">
+                <h1>Thank You!</h1>
+                <h3>Questions?</h3>
+                <br>
+                <p style="font-size: 0.8em;">
+                    📧 Contact for questions and feedback
+                </p>
+                <p style="font-size: 0.7em;">
+                    🔗 <a href="https://developer.aa.com/access/github-copilot" target="_blank">Get Your Copilot License</a>
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/markdown/markdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            controls: true,
+            progress: true,
+            center: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>
