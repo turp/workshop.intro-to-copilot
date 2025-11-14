@@ -65,7 +65,7 @@ Agent Mode represents a more powerful, autonomous approach to coding assistance.
 
 GitHub Copilot offers multiple AI models, each with different strengths:
 
-**Default Model: Claude Sonnet 4.x**
+**Default Model: Claude Sonnet 4.x or Claude Haiku 4.x**
 - Excels at code understanding and complex reasoning
 - Better at architectural decisions and design patterns
 - Strong performance with legacy code analysis
