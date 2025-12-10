@@ -866,6 +866,55 @@ You'll find:
 
 ### Creating Custom Assets for Your Team
 
+Custom Copilot assets are configuration files that customize how GitHub Copilot works for your team. They include:
+
+- Instruction files: Rules and patterns that guide Copilot's code generation
+- Prompt libraries: Pre-written prompts for common tasks
+- Custom chat modes: Specialized AI assistants for specific workflows
+
+Think of them as guardrails that keep Copilot aligned with your team's preferences.
+
+**Team Benefits:**
+1. Enforce Standards Without Constant Vigilance
+Instead of reviewing every PR for style violations, encode your patterns once. Copilot generates code that already follows your conventions.
+
+2. Instant Onboarding
+New developers inherit years of team knowledge immediately. They don't need to learn "how we do things here"—Copilot already knows.
+
+3. Reduce Context Switching
+Your team stops rewriting the same prompts. Common tasks become one-click operations.
+
+4. Improve Code Review Quality
+Less time catching style issues means more time on architecture and logic. Review cycles shrink because generated code is already aligned.
+
+Custom assets only work if they're version-controlled and shared. They're not useful sitting on one developer's machine—treat them like documentation that lives with your code.
+
+**Getting started:**
+1. Identify your team's most common tasks
+2. Note the patterns you want to enforce
+3. Create 2-3 instruction files for your most important standards
+4. Build a small library of prompts for frequent tasks
+5. Share with your team and iterate based on feedback
+
+**File Structure:**
+```
+your-project/
+├── .github/
+│   └── copilot/
+│       ├── prompts/
+│       │   ├── create-readme.prompt
+│       │   ├── generate-tests.prompt
+│       │   └── code-review.prompt
+│       ├── instructions/
+│       │   ├── testing.instructions.md
+│       │   ├── api-design.instructions.md
+│       │   └── security.instructions.md
+│       └── chatmodes/
+│           ├── architect.chatmode.md
+│           └── reviewer.chatmode.md
+└── README.md
+```
+
 #### 1. Reusable Prompts (.prompt files)
 
 Reusable prompts are pre-written prompt templates that you can invoke quickly without retyping common instructions.
@@ -993,43 +1042,293 @@ Always provide both the prompt and reasoning.
 - **Performance Optimizer Mode**: For identifying bottlenecks
 - **Documentation Writer Mode**: For creating comprehensive docs
 
-### Setting Up Your Workspace
+#### Creating Custom Agents
 
-To maximize the benefit of custom assets, organize them systematically in your project.
+Custom agents represent the next evolution in Copilot customization. Instead of one general assistant, you can build a team of specialists—each with a defined role, expertise, and boundaries. An `agents.md` file acts as an agent persona that Copilot assumes when you invoke it with `@agent-name`.
 
-**Recommended Structure:**
+#### What Makes a Great Agent
+
+Analysis of over 2,500 agent files across public repositories reveals a clear pattern: successful agents aren't vague helpers—they are specialists with clear jobs. The best-performing agent files share these characteristics:
+
+**1. Put commands early**: Include executable commands in an early section with flags and options: `npm test`, `npm run build`, `pytest -v`. Your agent will reference these often.
+
+**2. Code examples over explanations**: One real code snippet showing your style beats three paragraphs describing it. Show what good output looks like.
+
+**3. Set clear boundaries**: Tell AI what it should never touch (e.g., secrets, vendor directories, production configs). "Never commit secrets" is the most common helpful constraint.
+
+**4. Be specific about your stack**: Say "React 18 with TypeScript, Vite, and Tailwind CSS" not "React project." Include versions and key dependencies.
+
+**5. Cover six core areas**: The top-tier agents hit these areas: commands, testing, project structure, code style, git workflow, and boundaries.
+
+#### Agent File Structure
+
+An effective agent file follows this structure:
+
+```markdown
+---
+name: your-agent-name
+description: One-sentence description of what this agent does
+---
+
+You are an expert [role] for this project.
+
+## Your role
+- You specialize in [specific domain]
+- You understand [technology/patterns] and translate that into [output]
+- Your task: [clear, actionable objective]
+
+## Project knowledge
+- **Tech Stack:** [technologies with versions]
+- **File Structure:**
+  - `src/` – Application source code
+  - `tests/` – Test files
+  - `docs/` – Documentation
+
+## Commands you can use
+- **Build:** `npm run build` (compiles TypeScript, outputs to dist/)
+- **Test:** `npm test` (runs Jest, must pass before commits)
+- **Lint:** `npm run lint --fix` (auto-fixes ESLint errors)
+
+## Code style
+[Provide real examples of good vs bad code]
+
+## Boundaries
+- ✅ **Always do:** [safe operations]
+- ⚠️ **Ask first:** [operations requiring confirmation]
+- 🚫 **Never do:** [forbidden operations]
 ```
-your-project/
-├── .github/
-│   └── copilot/
-│       ├── prompts/
-│       │   ├── create-readme.prompt
-│       │   ├── generate-tests.prompt
-│       │   └── code-review.prompt
-│       ├── instructions/
-│       │   ├── testing.instructions.md
-│       │   ├── api-design.instructions.md
-│       │   └── security.instructions.md
-│       └── chatmodes/
-│           ├── architect.chatmode.md
-│           └── reviewer.chatmode.md
-└── README.md
+
+#### Ideas for Agents to Build
+
+**1. @docs-agent**
+Writes documentation by reading your code and generating API docs, function references, and tutorials.
+
+```markdown
+---
+name: docs_agent
+description: Expert technical writer for this project
+---
+
+You are an expert technical writer for this project.
+
+## Your role
+- You are fluent in Markdown and can read TypeScript code
+- You write for a developer audience, focusing on clarity and practical examples
+- Your task: read code from `src/` and generate or update documentation in `docs/`
+
+## Commands you can use
+- Build docs: `npm run docs:build` (checks for broken links)
+- Lint markdown: `npx markdownlint docs/` (validates your work)
+
+## Boundaries
+- ✅ **Always do:** Write to `docs/`, follow style examples, run markdownlint
+- ⚠️ **Ask first:** Before modifying existing documents in a major way
+- 🚫 **Never do:** Modify code in `src/`, edit config files, commit secrets
 ```
 
-**Team Benefits:**
-- **Consistency**: Everyone generates code following the same patterns
-- **Onboarding**: New team members inherit best practices immediately
-- **Quality**: Codified standards reduce review cycles
-- **Efficiency**: Reduced prompt iteration time
+**2. @test-agent**
+Writes comprehensive tests with proper coverage and edge cases.
 
-**Getting started:**
-1. Identify your team's most common tasks
-2. Note the patterns you want to enforce
-3. Create 2-3 instruction files for your most important standards
-4. Build a small library of prompts for frequent tasks
-5. Share with your team and iterate based on feedback
+```markdown
+---
+name: test_agent
+description: QA engineer who writes comprehensive tests
+---
 
-**Pro tip:** Version control your Copilot assets alongside your code. Treat them as part of your team's development infrastructure.
+You are a quality software engineer who writes comprehensive tests.
+
+## Your role
+- Write unit tests, integration tests, and edge case coverage
+- Run tests and analyze results
+- Write to `tests/` directory only
+
+## Commands you can use
+- Run tests: `npm test` or `pytest -v`
+- Coverage: `npm run test:coverage`
+
+## Boundaries
+- ✅ **Always do:** Write tests to `tests/`, include edge cases
+- ⚠️ **Ask first:** Before modifying test configuration
+- 🚫 **Never do:** Remove failing tests, modify source code
+```
+
+**3. @lint-agent**
+Fixes code style and formatting without changing logic.
+
+```markdown
+---
+name: lint_agent
+description: Code style and formatting specialist
+---
+
+You fix code style and formatting issues.
+
+## Commands you can use
+- Fix style: `npm run lint --fix`
+- Format code: `prettier --write src/`
+
+## Boundaries
+- ✅ **Always do:** Fix style, format code, organize imports
+- ⚠️ **Ask first:** If fix might affect behavior
+- 🚫 **Never do:** Change code logic or business rules
+```
+
+**4. @api-agent**
+Builds API endpoints following your framework patterns.
+
+```markdown
+---
+name: api_agent
+description: REST API endpoint specialist
+---
+
+You build RESTful API endpoints following our standards.
+
+## Project knowledge
+- **Framework:** Express.js with TypeScript
+- **Patterns:** Controller → Service → Repository
+- **Auth:** JWT with refresh tokens
+
+## Commands you can use
+- Start server: `npm run dev`
+- Test endpoint: `curl localhost:3000/api/health`
+- Run API tests: `npm run test:api`
+
+## Boundaries
+- ✅ **Always do:** Create routes, add validation, write tests
+- ⚠️ **Ask first:** Before modifying database schemas
+- 🚫 **Never do:** Change authentication logic without approval
+```
+
+**5. @refactor-agent**
+Modernizes and improves existing code safely.
+
+```markdown
+---
+name: refactor_agent
+description: Code modernization specialist
+---
+
+You refactor and modernize legacy code safely.
+
+## Your approach
+- Analyze code for patterns and dependencies
+- Make incremental, testable changes
+- Preserve existing functionality exactly
+- Run tests after each change
+
+## Boundaries
+- ✅ **Always do:** Run tests before and after, maintain behavior
+- ⚠️ **Ask first:** Before architectural changes
+- 🚫 **Never do:** Change behavior, skip tests, make breaking changes
+```
+
+**6. @security-agent**
+Reviews code for security vulnerabilities.
+
+```markdown
+---
+name: security_agent
+description: Security analysis and hardening specialist
+---
+
+You analyze code for security vulnerabilities.
+
+## Focus areas
+- Input validation and sanitization
+- Authentication and authorization
+- SQL injection and XSS vulnerabilities
+- Secrets and credential exposure
+- Dependency vulnerabilities
+
+## Commands you can use
+- Security scan: `npm audit`
+- Static analysis: `npm run security:check`
+
+## Boundaries
+- ✅ **Always do:** Identify issues, suggest fixes with examples
+- ⚠️ **Ask first:** Before implementing fixes that change behavior
+- 🚫 **Never do:** Commit fixes without user review
+```
+
+#### Building Your First Agent
+
+Start simple with one specific task. Don't build a "general helper"—pick something focused.
+
+**Quick start:**
+1. Choose a task (e.g., writing tests, fixing linting errors, writing docs)
+2. Create a file: `.github/agents/test-agent.md`
+3. Use this minimal template:
+
+```markdown
+---
+name: test-agent
+description: Writes unit tests for TypeScript functions
+---
+
+You are a QA software engineer who writes comprehensive tests.
+
+## Commands
+- Run tests: `npm test`
+
+## Boundaries
+- ✅ Write to `tests/` directory
+- 🚫 Never modify source code or remove failing tests
+```
+
+4. Test it: `@test-agent write tests for UserService`
+5. Iterate: Add more detail as you discover what the agent needs to know
+
+**Pro tip:** Use Copilot to generate agent files! Open a new file at `.github/agents/test-agent.md` and prompt:
+
+```
+Create a test agent for this repository. It should:
+- Have the persona of a QA software engineer
+- Write tests for this codebase
+- Run tests and analyze results
+- Write to "tests/" directory only
+- Never modify source code or remove failing tests
+- Include specific examples of good test structure
+```
+
+Copilot will generate a complete agent file based on your codebase. Review it, adjust commands, and you're ready to use `@test-agent`.
+
+#### Agent Best Practices
+
+**Three-tier boundaries**: Use a clear hierarchy for constraints:
+- ✅ **Always do**: Safe operations that don't need permission
+- ⚠️ **Ask first**: Operations that need user confirmation
+- 🚫 **Never do**: Forbidden operations that could cause harm
+
+**Real code examples**: Show your preferred patterns:
+```markdown
+## Code style example
+
+✅ Good - descriptive names, proper error handling
+```typescript
+async function fetchUserById(id: string): Promise<User> {
+  if (!id) throw new Error('User ID required');
+  const response = await api.get(`/users/${id}`);
+  return response.data;
+}
+```
+
+❌ Bad - vague names, no error handling
+```typescript
+async function get(x) {
+  return await api.get('/users/' + x).data;
+}
+```
+
+**Iterate based on mistakes**: The best agent files grow through iteration. When your agent makes a mistake, update the boundaries or add an example to prevent it.
+
+**Version control agents**: Store agent files in your repository alongside code. They're part of your team's development infrastructure.
+
+#### Resources
+
+- **GitHub Blog Guide**: [How to write a great agents.md](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/)
+- **Official Tutorials**: [GitHub Copilot Custom Agents](https://docs.github.com/en/copilot/tutorials/customization-library/custom-agents)
+- **Agent Examples**: [Awesome Copilot Agents Directory](https://github.com/github/awesome-copilot/tree/main/agents)
 
 ---
 
