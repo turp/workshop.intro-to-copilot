@@ -318,16 +318,7 @@ Analyze this pull request:
 3. Address identified issues
 4. Re-submit for a second review to verify fixes
 
-**Pro tip:** You can ask Copilot to generate a custom review checklist based on your team's specific coding standards:
-
-```
-Create a code review checklist for our team that includes:
-- Our specific naming conventions
-- Required documentation standards
-- Security requirements for handling user data
-- Performance benchmarks
-- Accessibility requirements
-```
+**Pro tip:** Ask Copilot to generate a custom review checklist based on your team's specific coding standards, including naming conventions, documentation standards, security requirements, performance benchmarks, and accessibility requirements.
 
 ---
 
@@ -1372,13 +1363,6 @@ VS Code extensions can also provide additional tools and capabilities to Copilot
 
 Learn more: [Configuring MCP servers in VS Code](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
 
-#### Resources
-
-- **GitHub Blog Guide**: [How to write a great agents.md](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/)
-- **Official Tutorials**: [GitHub Copilot Custom Agents](https://docs.github.com/en/copilot/tutorials/customization-library/custom-agents)
-- **Agent Examples**: [Awesome Copilot Agents Directory](https://github.com/github/awesome-copilot/tree/main/agents)
-- **MCP Documentation**: [VS Code MCP Servers Guide](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
-
 ---
 
 ## 4. Best Practices & Tips
@@ -1706,47 +1690,14 @@ Now that you understand Copilot's capabilities, the next step is consistent prac
 
 ### Hands-On Practice
 
-Use Copilot to:
+Start applying Copilot to your daily work:
 
-#### Create Documentation
-- **Generate a README.md** for your project
-  - Analyze the codebase to understand tech stack
-  - Include installation, usage, and API documentation
-  - Add contributing guidelines and license information
-
-#### Project Assessment
-- **Perform a project assessment**
-  - Analyze architecture, dependencies, and code quality
-  - Identify technical debt and security concerns
-  - Create *hangar-improvement* stories in ADO based on findings
-
-#### Establish Code Standards
-- **Create a `code standard` document**
-  - Save it as a markdown file in your project
-  - Use Copilot to enforce these standards in the IDE
-  - Implement pre-commit hooks to check standards
-  - Integrate standard checks during build process
-
-#### Generate and Review Tests
-- **Generate tests for one module**
-  - Target modules with low test coverage
-  - Review generated tests for business logic accuracy
-  - Run tests and fix any issues
-  - Identify patterns that work well for your codebase
-
-#### Build Custom Prompts
-- **Create custom prompts for your common tasks**
-  - Create a `prompts` folder in your project's `.github` directory
-  - Save prompts that work well for your team
-  - Share successful patterns with colleagues
-  - Iterate based on real usage and feedback
-
-#### Refactoring with Autonomous Agents
-- **Use autonomous agents for refactoring**
-  - Address issues identified in project assessment
-  - Tackle technical debt found by CodeScene
-  - Use `@workspace` agent for multi-file context
-  - Validate changes with comprehensive tests
+1. **Documentation** - Generate a README.md using the prompt template from the Appendix
+2. **Project Assessment** - Analyze your codebase for technical debt and improvement opportunities (see Example 2)
+3. **Code Standards** - Create instruction files to enforce your team's standards (see Section 3)
+4. **Testing** - Generate tests for modules with low coverage using the test generation templates
+5. **Custom Prompts** - Build a prompt library in `.github/prompts/` for your common tasks
+6. **Refactoring** - Use autonomous agents to tackle technical debt identified in assessments
 
 ### Additional Resources
 
@@ -1756,10 +1707,13 @@ Use Copilot to:
 
 #### Community Resources
 - **Awesome Copilot**: https://github.com/github/awesome-copilot  
-  Community-contributed instructions, prompts, and best practices
-- **Community Patterns**: Browse the awesome-copilot repo for inspiration and advanced techniques
+  Community-contributed instructions, prompts, and best practices. Browse this repo for inspiration and advanced techniques.
 - **5 AI-Assisted Coding Techniques**: https://www.kdnuggets.com/5-ai-assisted-coding-techniques-guaranteed-to-save-you-time  
   Practical techniques for saving time with AI coding tools
+
+- **GitHub Blog Guide**: [How to write a great agents.md](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/)
+- **Official Tutorials**: [GitHub Copilot Custom Agents](https://docs.github.com/en/copilot/tutorials/customization-library/custom-agents)
+- **Agent Examples**: [Awesome Copilot Agents Directory](https://github.com/github/awesome-copilot/tree/main/agents)
 
 #### Internal Resources
 - **Internal AA License**: https://developer.aa.com/access/github-copilot  
