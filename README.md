@@ -23,7 +23,7 @@ GitHub Copilot has evolved far beyond simple code completion. To harness its ful
 
 GitHub Copilot integrates seamlessly with several popular development environments, each offering unique advantages:
 
-**Visual Studio Code** - The most feature-rich integration, offering the complete Copilot experience with full access to all chat modes, inline suggestions, and agent capabilities. If you're looking for the most comprehensive Copilot experience, VS Code is your best choice.
+**Visual Studio Code** - The most feature-rich integration, offering the complete Copilot experience with full access to all agents, inline suggestions, and autonomous coding capabilities. If you're looking for the most comprehensive Copilot experience, VS Code is your best choice.
 
 **Visual Studio** - Provides full support tailored for .NET developers, with deep integration into the Visual Studio ecosystem. Perfect for C# and .NET development workflows.
 
@@ -31,54 +31,92 @@ GitHub Copilot integrates seamlessly with several popular development environmen
 
 **Other IDEs** - Copilot also supports Neovim and the broader JetBrains suite, ensuring developers can use their preferred tools.
 
-### Understanding Chat Modes: Ask vs Agent
+### Understanding Agent Types: From Questions to Autonomous Coding
 
-One of the most important concepts to grasp when working with GitHub Copilot is the difference between its two primary chat modes: **Ask Mode** and **Agent Mode**. Choosing the right mode for your task can dramatically improve your productivity.
+GitHub Copilot provides four distinct built-in agents, each designed for specific workflows. Understanding the difference between **asking agents** and **editing agents** is crucial for choosing the right tool for your task.
 
-#### Ask Mode: Quick Questions and Fast Answers
+#### Asking Agents: Information and Planning
 
-Ask Mode is designed for single-turn conversations where you need a quick, focused answer. Think of it as asking a knowledgeable colleague a specific question.
+These agents provide information, explanations, and plans without directly modifying your code.
+
+**Ask Agent**
+Your conversational expert for questions and guidance. Think of it as asking a knowledgeable colleague a specific question.
 
 **Best for:**
 - Syntax questions ("How do I parse JSON in Python?")
 - Quick explanations of code concepts
-- Code snippets for specific tasks
-- API usage examples
+- API usage examples and best practices
+- Understanding error messages
+- Getting code snippets to copy manually
 
-**When to use Ask Mode:** Use this mode when you know exactly what you need and can articulate it in a single question. The response will be immediate and focused on your specific query without extensive analysis of your codebase.
+**When to use:** When you need information, explanations, or suggestions but want full control over what changes are made to your code.
 
-#### Agent Mode: Autonomous Problem Solving
+**Plan Agent**
+A strategic planner that analyzes your request and creates a detailed implementation plan before any code is written.
 
-Agent Mode represents a more powerful, autonomous approach to coding assistance. In this mode, Copilot can perform multi-step problem solving, read files in your workspace, search your codebase for context, and even make edits across multiple files.
+**Best for:**
+- Breaking down complex features into steps
+- Understanding the scope of a refactor before committing
+- Planning architecture changes
+- Estimating impact across multiple files
+
+**When to use:** When you want to see a roadmap of what will be done before any actual changes are made. Perfect for understanding the full scope of complex tasks.
+
+#### Editing Agents: Autonomous Code Modification
+
+These agents actively read your workspace, understand context, and make direct changes to your codebase.
+
+**Agent**
+The most powerful autonomous coding assistant. This agent can perform multi-step problem solving, search your codebase, read files, and make edits across multiple files without constant prompting.
 
 **Best for:**
 - Refactoring complex code structures
 - Debugging issues that require understanding of your codebase
 - Complex implementations that span multiple files
 - Code analysis and architecture reviews
+- Installing dependencies and running terminal commands
 
-**Example scenario:** Instead of asking "How do I add error handling?", you can request: "Refactor this API to use async/await and add comprehensive error handling throughout the service layer."
+**Example scenario:** Instead of asking "How do I add error handling?", you can request: "Refactor this API to use async/await and add comprehensive error handling throughout the service layer." The agent will analyze your code, make the necessary changes across all affected files, and may even run tests to verify the changes.
 
-**The key difference:** Agent Mode understands your project context and can take autonomous actions, while Ask Mode provides targeted answers to specific questions.
+**Edit Agent**
+A focused code editor that makes targeted modifications to specific files or sections based on your instructions.
+
+**Best for:**
+- Making specific edits to a file you're currently viewing
+- Quick refactors in a defined scope
+- Applying changes to selected code
+- Iterative refinements of code sections
+
+**When to use:** When you have a clear, focused change in mind and don't need broad workspace analysis. Faster and more direct than the full Agent mode.
+
+**The key difference:** Asking agents (Ask, Plan) provide information and guidance while keeping you in control of all code changes. Editing agents (Agent, Edit) autonomously read your workspace and make direct modifications to your files, with Agent being the most powerful for complex, multi-file tasks.
 
 ### Model Selection: Choosing the Right AI
 
-GitHub Copilot offers multiple AI models, each with different strengths:
+GitHub Copilot offers multiple AI models, each with different strengths. You can switch models at any time using the model picker in the chat input field.
 
-**Default Model: Claude Sonnet 4.x or Claude Haiku 4.x**
-- Excels at code understanding and complex reasoning
-- Better at architectural decisions and design patterns
-- Strong performance with legacy code analysis
+**Recommended: Claude Sonnet 4.x**
+- Excels at complex reasoning and code understanding
+- Superior performance with architectural decisions and design patterns
+- Strong at legacy code analysis and refactoring
+- Best for multi-step problem solving and Agent mode
+
+**For Speed: Claude Haiku 4.x**
+- Faster responses for quick tasks
+- Good for simple queries and straightforward coding tasks
+- More efficient for Ask mode and quick answers
 
 **Alternative: GPT-4.1**
 - Sometimes better at creative solutions
 - May excel at specific use cases or languages
+- Try when Claude doesn't produce the desired result
 
-**When to switch models:** Different models excel at different tasks. If you're not getting the results you want with one model, try switching to see if the alternative better suits your specific use case. Some developers find that Claude performs better for refactoring and understanding existing code, while GPT-4o might offer more creative approaches to new implementations.
+**O1 Models** (when available)
+- Advanced reasoning capabilities for complex algorithmic problems
+- Best for mathematical computations and optimization tasks
+- Use sparingly due to higher computational cost
 
-> **Note:** Model availability may vary based on your organization's settings. Check with your administrator if you need access to specific models.
-
----
+**When to switch models:** Don't settle for the first result if it doesn't meet your needs. Different models have different strengths - if Claude Sonnet isn't giving you the results you want, try GPT-4.1 or another available model. Some developers find that Claude performs better for refactoring and understanding existing code, while GPT-4.1 might offer more creative approaches to new implementations. Experiment to find what works best for your specific use case and coding style.
 
 ## 2. Practical Examples & Use Cases
 
@@ -105,11 +143,11 @@ Analyze the codebase to understand the tech stack and dependencies.
 
 **How to use this:**
 1. Open your project in VS Code
-2. Switch to Agent mode in the Copilot chat
+2. Open Copilot chat and use `@workspace` for full project context
 3. Paste the prompt above
 4. Review the generated content and refine as needed
 
-**Key Insight:** Because Agent mode can read your files, it will analyze your package.json, source files, and project structure to create documentation that actually matches your implementation. You're not getting generic templates – you're getting documentation tailored to your specific project.
+**Key Insight:** Because the `@workspace` agent can read your files, it will analyze your package.json, source files, and project structure to create documentation that actually matches your implementation. You're not getting generic templates – you're getting documentation tailored to your specific project.
 
 ### Example 2: Project Assessment & Technical Debt Analysis
 
@@ -909,9 +947,9 @@ your-project/
 │       │   ├── testing.instructions.md
 │       │   ├── api-design.instructions.md
 │       │   └── security.instructions.md
-│       └── chatmodes/
-│           ├── architect.chatmode.md
-│           └── reviewer.chatmode.md
+│       └── agents/
+│           ├── architect.agent.md
+│           └── reviewer.agent.md
 └── README.md
 ```
 
@@ -1007,44 +1045,17 @@ When creating REST APIs:
 - Implement rate limiting headers
 ```
 
-### Chat Modes (.chatmode.md files)
 
-Chat modes allow you to create specialized versions of Copilot for specific tasks. Think of them as personas or roles that Copilot can assume.
 
-**Example: prompt-engineer.chatmode.md**
-```markdown
-# Prompt Engineer Mode
+### Custom Agents (.agent.md files)
 
-You are an expert prompt engineer. When users describe a task:
+Beyond the built-in agents (`@workspace`, `@vscode`, `@terminal`), you can create **custom agents** tailored to your team's specific workflows. Custom agents are specialized AI assistants with defined roles, expertise, and boundaries. An `agents.md` file acts as an agent persona that Copilot assumes when you invoke it with `@agent-name`.
 
-1. Ask clarifying questions about:
-   - Desired output format
-   - Constraints and requirements
-   - Context needed
-   - Success criteria
-
-2. Generate an optimized prompt that:
-   - Provides clear context
-   - Specifies output format
-   - Includes examples
-   - Sets appropriate constraints
-
-3. Explain why the prompt is effective
-
-Always provide both the prompt and reasoning.
-```
-
-**Use case:** Activate this mode when you need to craft an important prompt for a complex task. Instead of guessing, let Copilot help you formulate the best possible prompt.
-
-**Other useful chat modes:**
-- **Architect Mode**: For high-level design decisions
-- **Security Auditor Mode**: Focused on security reviews
-- **Performance Optimizer Mode**: For identifying bottlenecks
-- **Documentation Writer Mode**: For creating comprehensive docs
-
-### Agents (.agent.md files)
-
-Custom agents represent the next evolution in Copilot customization. Instead of one general assistant, you can build a team of specialists—each with a defined role, expertise, and boundaries. An `agents.md` file acts as an agent persona that Copilot assumes when you invoke it with `@agent-name`.
+**Why create custom agents?**
+- Build a team of specialists instead of one general assistant
+- Encode team-specific workflows and standards
+- Create focused assistants that excel at particular tasks
+- Reduce context and improve response quality
 
 #### What Makes a Great Agent
 
@@ -1324,11 +1335,45 @@ async function get(x) {
 
 **Version control agents**: Store agent files in your repository alongside code. They're part of your team's development infrastructure.
 
+#### Extending Agents with Tools and MCP Servers
+
+Beyond custom agent definitions, you can extend agent capabilities with specialized tools:
+
+**Model Context Protocol (MCP) Servers**
+
+MCP servers add powerful capabilities to your agents by connecting them to external data sources and services:
+
+- **Database access** - Query databases directly from chat
+- **API integration** - Connect to external APIs and services
+- **Custom tools** - Build specialized tools for your workflow
+- **File system operations** - Enhanced file manipulation beyond standard capabilities
+
+**Installing MCP Servers:**
+
+1. Browse available MCP servers in the Marketplace or community repositories
+2. Configure MCP servers in your VS Code settings
+3. Agents can automatically use available MCP tools when relevant
+4. Use the agent mode picker to see which tools are available
+
+**Marketplace Extensions:**
+
+VS Code extensions can also provide additional tools and capabilities to Copilot agents. Browse the Extensions Marketplace for Copilot-compatible extensions that add specialized functionality.
+
+**Example use cases:**
+- Pull data from your company's internal APIs
+- Query production databases for debugging
+- Integrate with project management tools
+- Access documentation repositories
+- Connect to CI/CD systems
+
+Learn more: [Configuring MCP servers in VS Code](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
+
 #### Resources
 
 - **GitHub Blog Guide**: [How to write a great agents.md](https://github.blog/ai-and-ml/github-copilot/how-to-write-a-great-agents-md-lessons-from-over-2500-repositories/)
 - **Official Tutorials**: [GitHub Copilot Custom Agents](https://docs.github.com/en/copilot/tutorials/customization-library/custom-agents)
 - **Agent Examples**: [Awesome Copilot Agents Directory](https://github.com/github/awesome-copilot/tree/main/agents)
+- **MCP Documentation**: [VS Code MCP Servers Guide](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
 
 ---
 
@@ -1358,7 +1403,7 @@ Create a FastAPI endpoint for creating new users, validating input, and returnin
 - Less time spent rewriting or debugging mismatched code
 - The model understands your system's constraints and patterns upfront
 
-**For Copilot users:** Attach your design documents, architecture files, or coding standards to the chat before requesting implementations. Open related files in your editor to provide implicit context.
+**For Copilot users:** Attach your design documents, architecture files, or coding standards to the chat before requesting implementations. Use `@workspace` to leverage full project context. Open related files in your editor to provide additional implicit context.
 
 #### 2. Use One AI to Code, Another to Review
 
@@ -1384,7 +1429,7 @@ Every experienced team has two core roles: the builder and the reviewer. You can
 - Reduces human review overhead for routine or boilerplate updates
 - Catches issues before they reach your team's code review
 
-**In practice with Copilot:** Generate code in Agent mode, then open a new chat session and ask Copilot to review the implementation critically, looking for edge cases, security issues, and potential bugs.
+**In practice with Copilot:** Generate code using autonomous agents, then open a new chat session and ask Copilot to review the implementation critically, looking for edge cases, security issues, and potential bugs.
 
 #### 3. Automate Tests and Validation with AI
 
@@ -1432,14 +1477,15 @@ Old codebases slow everyone down, not because they're bad, but because no one re
 - Modernizing syntax and patterns
 - Identifying and fixing deprecated API usage
 
-**Best practice:** Use Agent mode for refactoring tasks that span multiple files. The agent can understand dependencies between files and make coordinated changes across your codebase.
+**Best practice:** Use the `@workspace` agent for refactoring tasks that span multiple files. The agent can understand dependencies between files and make coordinated changes across your codebase.
 
 #### 5. Work Asynchronously with Multiple AI Sessions
 
 When you're deep in a coding session, waiting for model replies can break your flow. You can leverage Copilot's chat for multiple parallel tasks while staying focused on your main work.
 
 **Parallel task approach:**
-- Open multiple Copilot chat windows for different tasks
+- Open multiple Copilot chat sessions for different tasks
+- Use specialized agents for each task (`@workspace` for code, custom agents for specific workflows)
 - Queue up distinct tasks: documentation, type definitions, validation, tests
 - Continue working locally while AI processes each request
 - Review and integrate results as they complete
@@ -1467,28 +1513,37 @@ Each of these techniques works well on its own, but the real advantage comes fro
 
 3. **Automated test generation**: Let Copilot create or repair tests as soon as new code lands, ensuring every change remains verifiable and CI/CD ready.
 
-4. **AI-driven refactoring**: Use Agent mode to handle repetitive upgrades, dependency bumps, config migrations, and deprecated API rewrites in the background.
+4. **AI-driven refactoring**: Use autonomous agents to handle repetitive upgrades, dependency bumps, config migrations, and deprecated API rewrites in the background.
 
 5. **Prompt evolution**: Feed back results from previous tasks—successes and mistakes alike—to refine your prompts over time. This is how AI workflows mature into reliable, semi-autonomous systems.
 
-### When to Use Agent vs Ask Mode
+### Choosing the Right Copilot Interaction
 
-Choosing the right mode significantly impacts efficiency. Here's a decision matrix:
+Choosing the right interaction method significantly impacts efficiency. Here's a decision guide:
 
-| Task Type | Mode | Why |
-|-----------|------|-----|
-| Quick syntax question | **Ask** | Faster, no file access overhead |
-| "How do I parse JSON in Python?" | **Ask** | Simple, contained answer |
-| Refactoring multiple files | **Agent** | Needs to read and edit across files |
-| Debugging complex issues | **Agent** | Requires codebase search and analysis |
-| Explaining a concept | **Ask** | Straightforward, no context needed |
-| Generating boilerplate project | **Agent** | Creates multiple related files |
-| Code snippet for specific function | **Ask** | Self-contained, single response |
-| "Fix all TypeScript errors in this project" | **Agent** | Needs to scan and fix systematically |
-| API usage example | **Ask** | Direct, focused example |
-| Architecture review | **Agent** | Needs to analyze entire codebase |
+| Task Type | Interaction Method | Why |
+|-----------|-------------------|-----|
+| Quick syntax question | **Chat** | Fast, focused answer |
+| "How do I parse JSON in Python?" | **Chat** | Simple, contained answer |
+| Refactoring multiple files | **@workspace agent** | Needs to read and edit across files |
+| Debugging complex issues | **@workspace agent** | Requires codebase search and analysis |
+| Explaining a concept | **Chat** | Straightforward, no context needed |
+| Generating boilerplate project | **Autonomous agent** | Creates multiple related files |
+| Code snippet for specific function | **Inline suggestions** or **Chat** | Self-contained, single response |
+| "Fix all TypeScript errors in this project" | **@workspace agent** | Needs to scan and fix systematically |
+| API usage example | **Chat** | Direct, focused example |
+| Architecture review | **@workspace agent** | Needs to analyze entire codebase |
+| VS Code configuration | **@vscode agent** | Expert on editor features |
+| Terminal commands | **@terminal agent** | Specialized for shell operations |
+| Quick refactor in current file | **Inline chat (Ctrl+I)** | Keeps you in flow |
 
-**General rule**: If the task requires understanding relationships between files or making coordinated changes across your codebase, use **Agent mode**. If you need a quick answer to a specific question, use **Ask mode**.
+**General rules**: 
+- Use **inline suggestions** while actively coding for autocomplete and quick snippets
+- Use **chat** for quick questions and explanations
+- Use **inline chat** (`Ctrl+I`) for focused edits in the current file
+- Use **@workspace** when you need to understand or modify multiple files
+- Use **specialized agents** (`@vscode`, `@terminal`) for domain-specific tasks
+- Use **autonomous agents** for complex, multi-step implementations
 
 ### Security Considerations
 
@@ -1569,9 +1624,10 @@ Copilot learns from public code, which means generated code might resemble exist
 
 **Faster iteration:**
 - Keep your prompts concise but complete
-- Use Ask mode for quick questions to avoid Agent overhead
+- Use chat for quick questions; use agents for complex tasks
 - Build a prompt library to avoid retyping
 - Use keyboard shortcuts for Copilot in your IDE
+- Use inline chat (`Ctrl+I`) for quick edits without leaving your file
 
 **Better results:**
 - Reference files explicitly: "In UserService.js, add a method..."
@@ -1580,9 +1636,47 @@ Copilot learns from public code, which means generated code might resemble exist
 - Mention performance requirements upfront
 
 **Context management:**
-- Close unnecessary files to reduce noise in Agent mode
+- Close unnecessary files to reduce noise when using `@workspace`
 - Open related files before making a complex request
+- Use specific agents (`@workspace`, `@vscode`, `@terminal`) for focused context
 - Clear chat history if Copilot seems confused by old context
+
+### Leveraging Smart Actions
+
+Smart actions are AI-enhanced shortcuts integrated throughout VS Code that provide contextual assistance:
+
+**Built-in Smart Actions:**
+
+1. **Commit Messages** - Right-click staged changes and select "Generate Commit Message"
+   - Analyzes your diff to create descriptive commit messages
+   - Follows conventional commit format when applicable
+   - Saves time and improves commit history quality
+
+2. **Fix Errors** - Click the lightbulb icon next to errors in your code
+   - AI-powered quick fixes for common errors
+   - Suggests multiple fix options when available
+   - Works with linting and type errors
+
+3. **Rename Symbol** - Use F2 to rename with AI assistance
+   - Suggests better variable/function names
+   - Updates all references automatically
+   - Maintains code consistency
+
+4. **Semantic Search** - Use natural language to find code
+   - Search your codebase with questions like "authentication logic"
+   - Finds relevant files even without exact keyword matches
+   - More intuitive than grep or regex search
+
+5. **PR Descriptions** - Generate comprehensive pull request descriptions
+   - Summarizes all changes in the PR
+   - Lists affected files and key modifications
+   - Saves time during code review process
+
+**Using Smart Actions Effectively:**
+- Watch for lightbulb icons in the editor - they indicate AI assistance is available
+- Use smart actions for routine tasks to save time
+- Combine smart actions with chat for more complex workflows
+- Review AI-generated content before accepting, especially for commit messages
 
 ### Common Pitfalls to Avoid
 
@@ -1641,11 +1735,11 @@ Use Copilot to:
   - Share successful patterns with colleagues
   - Iterate based on real usage and feedback
 
-#### Refactoring with Agent Mode
-- **Use Agent mode for refactoring**
+#### Refactoring with Autonomous Agents
+- **Use autonomous agents for refactoring**
   - Address issues identified in project assessment
   - Tackle technical debt found by CodeScene
-  - Use multi-file context for complex refactoring
+  - Use `@workspace` agent for multi-file context
   - Validate changes with comprehensive tests
 
 ### Additional Resources
