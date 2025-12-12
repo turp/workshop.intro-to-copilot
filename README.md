@@ -143,11 +143,12 @@ Analyze the codebase to understand the tech stack and dependencies.
 
 **How to use this:**
 1. Open your project in VS Code
-2. Open Copilot chat and use `@workspace` for full project context
-3. Paste the prompt above
-4. Review the generated content and refine as needed
+2. Open Copilot Chat view and select the Agent mode
+3. Add workspace context with `#codebase` to give full project context
+4. Paste the prompt above
+5. Review the generated content and refine as needed
 
-**Key Insight:** Because the `@workspace` agent can read your files, it will analyze your package.json, source files, and project structure to create documentation that actually matches your implementation. You're not getting generic templates – you're getting documentation tailored to your specific project.
+**Key Insight:** Because agents can read your workspace files, they will analyze your package.json, source files, and project structure to create documentation that actually matches your implementation. You're not getting generic templates – you're getting documentation tailored to your specific project.
 
 ### Example 2: Project Assessment & Technical Debt Analysis
 
@@ -1049,7 +1050,10 @@ When creating REST APIs:
 
 ### Custom Agents (.agent.md files)
 
-Beyond the built-in agents (`@workspace`, `@vscode`, `@terminal`), you can create **custom agents** tailored to your team's specific workflows. Custom agents are specialized AI assistants with defined roles, expertise, and boundaries. An `agents.md` file acts as an agent persona that Copilot assumes when you invoke it with `@agent-name`.
+Beyond the four built-in agents (Agent, Plan, Ask, Edit), you can create **custom agents** tailored to your team's specific workflows. Custom agents are specialized AI assistants with defined roles, expertise, and boundaries. An `agents.md` file acts as an agent persona that Copilot assumes when you invoke it.
+
+> [!NOTE]
+> Don't confuse agents with context references. Agents are modes like Agent, Plan, Ask, and Edit. Context references like `#codebase`, `#file`, or `#terminalSelection` are used to add specific context to your prompts.
 
 **Why create custom agents?**
 - Build a team of specialists instead of one general assistant
@@ -1403,7 +1407,7 @@ Create a FastAPI endpoint for creating new users, validating input, and returnin
 - Less time spent rewriting or debugging mismatched code
 - The model understands your system's constraints and patterns upfront
 
-**For Copilot users:** Attach your design documents, architecture files, or coding standards to the chat before requesting implementations. Use `@workspace` to leverage full project context. Open related files in your editor to provide additional implicit context.
+**For Copilot users:** Attach your design documents, architecture files, or coding standards to the chat before requesting implementations. Use `#codebase` to add full project context. Open related files in your editor to provide additional implicit context.
 
 #### 2. Use One AI to Code, Another to Review
 
@@ -1477,7 +1481,7 @@ Old codebases slow everyone down, not because they're bad, but because no one re
 - Modernizing syntax and patterns
 - Identifying and fixing deprecated API usage
 
-**Best practice:** Use the `@workspace` agent for refactoring tasks that span multiple files. The agent can understand dependencies between files and make coordinated changes across your codebase.
+**Best practice:** Use the Agent mode for refactoring tasks that span multiple files. The agent can understand dependencies between files and make coordinated changes across your codebase. Add `#codebase` context to give the agent full workspace visibility.
 
 #### 5. Work Asynchronously with Multiple AI Sessions
 
@@ -1485,7 +1489,7 @@ When you're deep in a coding session, waiting for model replies can break your f
 
 **Parallel task approach:**
 - Open multiple Copilot chat sessions for different tasks
-- Use specialized agents for each task (`@workspace` for code, custom agents for specific workflows)
+- Use the appropriate agent mode for each task (Agent for autonomous coding, Ask for questions, Plan for planning, Edit for focused edits)
 - Queue up distinct tasks: documentation, type definitions, validation, tests
 - Continue working locally while AI processes each request
 - Review and integrate results as they complete
@@ -1523,27 +1527,28 @@ Choosing the right interaction method significantly impacts efficiency. Here's a
 
 | Task Type | Interaction Method | Why |
 |-----------|-------------------|-----|
-| Quick syntax question | **Chat** | Fast, focused answer |
-| "How do I parse JSON in Python?" | **Chat** | Simple, contained answer |
-| Refactoring multiple files | **@workspace agent** | Needs to read and edit across files |
-| Debugging complex issues | **@workspace agent** | Requires codebase search and analysis |
-| Explaining a concept | **Chat** | Straightforward, no context needed |
-| Generating boilerplate project | **Autonomous agent** | Creates multiple related files |
+| Quick syntax question | **Chat with Ask agent** | Fast, focused answer |
+| "How do I parse JSON in Python?" | **Chat with Ask agent** | Simple, contained answer |
+| Refactoring multiple files | **Chat with Agent mode** | Autonomous, reads and edits across files |
+| Debugging complex issues | **Chat with Agent mode** | Requires codebase search and analysis |
+| Explaining a concept | **Chat with Ask agent** | Straightforward, no context needed |
+| Generating boilerplate project | **Chat with Agent mode** | Creates multiple related files |
 | Code snippet for specific function | **Inline suggestions** or **Chat** | Self-contained, single response |
-| "Fix all TypeScript errors in this project" | **@workspace agent** | Needs to scan and fix systematically |
-| API usage example | **Chat** | Direct, focused example |
-| Architecture review | **@workspace agent** | Needs to analyze entire codebase |
-| VS Code configuration | **@vscode agent** | Expert on editor features |
-| Terminal commands | **@terminal agent** | Specialized for shell operations |
-| Quick refactor in current file | **Inline chat (Ctrl+I)** | Keeps you in flow |
+| "Fix all TypeScript errors in this project" | **Chat with Agent mode** | Needs to scan and fix systematically |
+| API usage example | **Chat with Ask agent** | Direct, focused example |
+| Architecture review | **Chat with Agent mode** | Needs to analyze entire codebase |
+| Planning a complex feature | **Chat with Plan agent** | Creates implementation roadmap |
+| Focused edit in current file | **Inline chat (Ctrl+I)** | Keeps you in flow |
+| Targeted changes to open file | **Chat with Edit agent** | Focused modifications |
 
 **General rules**: 
 - Use **inline suggestions** while actively coding for autocomplete and quick snippets
-- Use **chat** for quick questions and explanations
-- Use **inline chat** (`Ctrl+I`) for focused edits in the current file
-- Use **@workspace** when you need to understand or modify multiple files
-- Use **specialized agents** (`@vscode`, `@terminal`) for domain-specific tasks
-- Use **autonomous agents** for complex, multi-step implementations
+- Use **Chat view with Ask agent** for quick questions and explanations
+- Use **inline chat** (`Ctrl+I`) for focused edits without leaving the editor
+- Use **Chat view with Agent mode** for autonomous coding across multiple files
+- Use **Chat view with Plan agent** when you want to see a roadmap before changes
+- Use **Chat view with Edit agent** for targeted modifications to specific files
+- Use **context references** like `#codebase`, `#file`, `#terminalSelection` to add relevant context
 
 ### Security Considerations
 
@@ -1636,9 +1641,10 @@ Copilot learns from public code, which means generated code might resemble exist
 - Mention performance requirements upfront
 
 **Context management:**
-- Close unnecessary files to reduce noise when using `@workspace`
+- Close unnecessary files to reduce noise in your workspace
 - Open related files before making a complex request
-- Use specific agents (`@workspace`, `@vscode`, `@terminal`) for focused context
+- Use context references like `#codebase`, `#file`, `#selection` to add specific context
+- Choose the right agent mode (Agent, Plan, Ask, Edit) for your task
 - Clear chat history if Copilot seems confused by old context
 
 ### Leveraging Smart Actions
