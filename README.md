@@ -915,7 +915,7 @@ your-project/
 └── README.md
 ```
 
-#### 1. Reusable Prompts (.prompt files)
+### Prompts (.prompt files)
 
 Reusable prompts are pre-written prompt templates that you can invoke quickly without retyping common instructions.
 
@@ -934,7 +934,7 @@ Create a professional README.md following this structure:
 Tailor content based on detected language and framework.
 ```
 
-**How to use:** Save this in a `.github/copilot/` directory in your project. When you need a README, you can reference this prompt or simply ask Copilot to "use the create-readme prompt."
+**How to use:** Save this in a `.github/prompts/` directory in your project. When you need a README, you can reference this prompt or simply ask Copilot to "use the create-readme prompt."
 
 **Other useful prompt templates:**
 - API endpoint generation
@@ -943,7 +943,7 @@ Tailor content based on detected language and framework.
 - Configuration file setup
 - CI/CD pipeline generation
 
-#### 2. Custom Instructions (.instructions.md files)
+### Instructions (.instructions.md files)
 
 Instructions guide Copilot's behavior for specific domains, technologies, or patterns. They're like style guides that Copilot automatically follows.
 
@@ -1007,7 +1007,7 @@ When creating REST APIs:
 - Implement rate limiting headers
 ```
 
-#### 3. Chat Modes (.chatmode.md files)
+### Chat Modes (.chatmode.md files)
 
 Chat modes allow you to create specialized versions of Copilot for specific tasks. Think of them as personas or roles that Copilot can assume.
 
@@ -1042,7 +1042,7 @@ Always provide both the prompt and reasoning.
 - **Performance Optimizer Mode**: For identifying bottlenecks
 - **Documentation Writer Mode**: For creating comprehensive docs
 
-#### Creating Custom Agents
+### Agents (.agent.md files)
 
 Custom agents represent the next evolution in Copilot customization. Instead of one general assistant, you can build a team of specialists—each with a defined role, expertise, and boundaries. An `agents.md` file acts as an agent persona that Copilot assumes when you invoke it with `@agent-name`.
 
