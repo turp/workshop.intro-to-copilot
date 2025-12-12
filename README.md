@@ -930,18 +930,17 @@ Custom assets only work if they're version-controlled and shared. They're not us
 ```
 your-project/
 ├── .github/
-│   └── copilot/
-│       ├── prompts/
-│       │   ├── create-readme.prompt
-│       │   ├── generate-tests.prompt
-│       │   └── code-review.prompt
-│       ├── instructions/
-│       │   ├── testing.instructions.md
-│       │   ├── api-design.instructions.md
-│       │   └── security.instructions.md
-│       └── agents/
-│           ├── architect.agent.md
-│           └── reviewer.agent.md
+│     ├── prompts/
+│     │   ├── create-readme.prompt
+│     │   ├── generate-tests.prompt
+│     │   └── code-review.prompt
+│     ├── instructions/
+│     │   ├── testing.instructions.md
+│     │   ├── api-design.instructions.md
+│     │   └── security.instructions.md
+│     └── agents/
+│         ├── architect.agent.md
+│         └── reviewer.agent.md
 └── README.md
 ```
 

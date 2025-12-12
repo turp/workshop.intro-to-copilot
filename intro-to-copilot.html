@@ -1,25 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Copilot: Beyond the Basics</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reset.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/black.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
     <style>
-        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
-        .reveal pre { width: 100%; }
-        .reveal pre code { max-height: 500px; }
-        .reveal .slides section .fragment.highlight-current-blue { opacity: 1; visibility: inherit; }
-        .reveal .slides section .fragment.highlight-current-blue.current-fragment { color: #42affa; }
-        .speaker-note { font-size: 0.7em; color: #888; font-style: italic; margin-top: 20px; }
-        .demo-badge { background-color: #28a745; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.6em; }
-        .time-badge { background-color: #6c757d; color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.6em; }
-        .comparison-table { font-size: 0.7em; }
-        .comparison-table td:first-child { background-color: #f8d7da; }
-        .comparison-table td:last-child { background-color: #d4edda; }
+        /* AA Brand Colors */
+        :root {
+            --r-main-font-size: 32px;   
+            --aa-red: #C60C30;
+            --aa-blue: #00507F;
+            --aa-silver: #C0C0C0;
+            --aa-dark: #1a1a1a;
+        }
+
+        .reveal {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3 {
+            color: var(--aa-red);
+            text-transform: none;
+        }
+
+        .reveal h1 {
+            font-size: 2.0em;
+            margin-bottom: 0.5em;
+        }
+
+        .reveal h2 {
+            font-size: 1.7em;
+            margin-bottom: 0.5em;
+        }
+
+        .reveal .subtitle {
+            color: var(--aa-silver);
+            font-size: 1.2em;
+            font-style: italic;
+        }
+
+        .reveal section {
+            text-align: left;
+        }
+
+        .reveal .title-slide {
+            text-align: center;
+        }
+
+        .reveal .title-slide h1 {
+            margin-top: 1em;
+        }
+
+        .reveal a {
+            color: var(--aa-blue);
+        }
+
+        .reveal a:hover {
+            color: var(--aa-red);
+        }
+
+        .reveal code {
+            background: #2d2d2d;
+            padding: 2px 8px;
+            border-radius: 3px;
+        }
+
+        .reveal pre code {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 5px;
+            max-height: 500px;
+        }
+
+        .reveal .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2em;
+            align-items: start;
+        }
+
+        .reveal .highlight-box {
+            background: var(--aa-blue);
+            padding: 1em;
+            border-radius: 5px;
+            margin: 1em 0;
+        }
+
+        .reveal .accent {
+            color: var(--aa-red);
+            font-weight: bold;
+        }
+
+        .reveal ul {
+            margin-left: 0;
+        }
+
+        .reveal li {
+            margin-bottom: 0.5em;
+        }
+
+        .reveal .small {
+            font-size: 0.8em;
+        }
+
+        .reveal .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .reveal blockquote {
+            background: var(--aa-blue);
+            border-left: 5px solid var(--aa-red);
+            padding: 1em;
+            margin: 1em 0;
+            font-style: italic;
+        }
+
+        .reveal .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1em;
+        }
+
+        .reveal .comparison-item {
+            padding: 1em;
+            border-radius: 5px;
+        }
+
+        .reveal .good {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 5px solid #00ff00;
+        }
+
+        .reveal .bad {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 5px solid #ff0000;
+        }
     </style>
 </head>
 <body>
@@ -27,91 +147,150 @@
         <div class="slides">
             
             <!-- Title Slide -->
-            <section data-background-gradient="linear-gradient(to bottom, #1a1a1a, #2d2d2d)">
-                <h1>GitHub Copilot</h1>
-                <h3>Beyond the Basics</h3>
-                <p>Advanced Features for Developers</p>
-                <br>
-                <p style="font-size: 0.6em;">
-                    <a href="https://developer.aa.com/access/github-copilot" target="_blank">Get Your License</a>
+            <section class="title-slide">
+                <h1>GitHub Copilot: Beyond the Basics</h1>
+                <p class="subtitle">A Comprehensive Guide for Developers</p>
+                <p style="margin-top: 2em;">
+                    <small>December 12, 2025</small><br>
+                    <small><a href="https://developer.aa.com/access/github-copilot">Get Your License</a></small>
                 </p>
+                <aside class="notes">
+                    Welcome everyone! Today we're diving deep into GitHub Copilot's advanced features.
+                    This is beyond simple autocomplete - we'll explore autonomous coding, custom agents, and workflows that will transform how you develop.
+                    The presentation is about 60 minutes with time for questions.
+                </aside>
             </section>
 
-            <!-- Section 1: Getting Started -->
+            <!-- Section 1: IDE Integration -->
             <section>
-                <section data-background-color="#2c3e50">
-                    <h2>1. Getting Started</h2>
-                    <h3>IDE Integration</h3>
-                    <span class="time-badge">5-7 minutes</span>
+                <section>
+                    <h2>Getting Started: IDE Integration</h2>
+                    <p>GitHub Copilot has evolved far beyond simple code completion</p>
+                    <aside class="notes">
+                        Let's start with the foundation - understanding how Copilot integrates with your development environment.
+                        This isn't just about autocomplete anymore. Copilot now offers autonomous agents that can read, analyze, and modify entire codebases.
+                    </aside>
                 </section>
 
                 <section>
                     <h3>Supported IDEs</h3>
                     <ul>
-                        <li class="fragment"><strong>VS Code</strong> - Most feature-rich integration</li>
-                        <li class="fragment"><strong>Visual Studio</strong> - Full support for .NET</li>
-                        <li class="fragment"><strong>IntelliJ IDEA</strong> - Java/Kotlin optimized</li>
-                        <li class="fragment"><strong>Others</strong> - Neovim, JetBrains suite</li>
+                        <li><span class="accent">Visual Studio Code</span> - Most feature-rich integration</li>
+                        <li><span class="accent">Visual Studio</span> - Optimized for .NET developers</li>
+                        <li><span class="accent">IntelliJ IDEA</span> - Java/Kotlin-optimized</li>
+                        <li><span class="accent">JetBrains Suite & Neovim</span> - Extended support</li>
                     </ul>
+                    <div class="highlight-box">
+                        <p><strong>Pro Tip:</strong> VS Code offers the complete Copilot experience with full access to all agents and autonomous coding capabilities.</p>
+                    </div>
+                    <aside class="notes">
+                        VS Code is the recommended IDE for the full Copilot experience.
+                        If you're doing .NET work, Visual Studio has deep integration.
+                        For Java developers, IntelliJ provides intelligent context awareness.
+                        The key is that Copilot works where you work - you don't need to change your tools.
+                    </aside>
                 </section>
 
                 <section>
-                    <h3>Chat Modes: Ask vs Agent</h3>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.8em;">
-                        <div class="fragment">
-                            <h4 style="color: #42affa;">Ask Mode</h4>
-                            <ul style="font-size: 0.85em;">
-                                <li>Single-turn conversations</li>
-                                <li>Fast, focused answers</li>
-                                <li>Syntax questions</li>
-                                <li>Quick explanations</li>
+                    <h3>Understanding Agent Types</h3>
+                    <p>Four distinct agents, each designed for specific workflows</p>
+                    <div class="two-column">
+                        <div>
+                            <h4 style="color: var(--aa-blue);">Asking Agents</h4>
+                            <ul>
+                                <li><strong>Ask Agent</strong> - Q&A expert</li>
+                                <li><strong>Plan Agent</strong> - Strategic planner</li>
                             </ul>
-                            <p style="font-size: 0.7em; color: #888;">Example: "How do I parse JSON?"</p>
+                            <p class="small">Provide information without modifying code</p>
                         </div>
-                        <div class="fragment">
-                            <h4 style="color: #f39c12;">Agent Mode</h4>
-                            <ul style="font-size: 0.85em;">
-                                <li>Multi-step problem solving</li>
-                                <li>Reads files & searches code</li>
-                                <li>Makes edits autonomously</li>
-                                <li>Complex implementations</li>
+                        <div>
+                            <h4 style="color: var(--aa-red);">Editing Agents</h4>
+                            <ul>
+                                <li><strong>Agent</strong> - Autonomous coder</li>
+                                <li><strong>Edit Agent</strong> - Focused editor</li>
                             </ul>
-                            <p style="font-size: 0.7em; color: #888;">Example: "Refactor to async/await"</p>
+                            <p class="small">Actively read workspace and make changes</p>
                         </div>
                     </div>
+                    <aside class="notes">
+                        This is a crucial distinction. Asking agents give you information and plans but keep you in control of changes.
+                        Editing agents can autonomously read your entire codebase and make modifications across multiple files.
+                        Agent mode is the most powerful - it's like having a senior developer who can search, analyze, and refactor your entire project.
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>When to Use Each Agent</h3>
+                    <div class="mermaid">
+graph TD
+    Start[Need Help with Code] --> Question{What do you need?}
+    Question -->|Quick answer| Ask[Use Ask Agent]
+    Question -->|See plan first| Plan[Use Plan Agent]
+    Question -->|Targeted edit| Edit[Use Edit Agent]
+    Question -->|Complex multi-file| Agent[Use Agent Mode]
+    
+    Ask --> AskEx["Syntax questions, API examples, Explanations"]
+    Plan --> PlanEx["Feature planning, Refactor scope, Architecture"]
+    Edit --> EditEx["Focused changes, Single file edits, Quick refactors"]
+    Agent --> AgentEx["Multi-file refactoring, Debugging, Complex features"]
+                    </div>
+                    <aside class="notes">
+                        Use this flowchart as your decision guide.
+                        Ask agent for quick questions - think of it as Stack Overflow integrated into your IDE.
+                        Plan agent when you want to understand what will happen before any code changes.
+                        Edit agent for focused changes in specific files.
+                        Agent mode for complex tasks that require understanding your entire codebase.
+                    </aside>
                 </section>
 
                 <section>
                     <h3>Model Selection</h3>
                     <ul>
-                        <li class="fragment"><strong>Default:</strong> Claude Sonnet 4.x or Haiku 4.x
-                            <ul style="font-size: 0.8em;">
-                                <li>Better code understanding</li>
-                                <li>Complex reasoning</li>
+                        <li><span class="accent">Claude Sonnet 4.x</span> (Recommended)
+                            <ul class="small">
+                                <li>Excels at complex reasoning</li>
+                                <li>Best for multi-step problem solving</li>
                             </ul>
                         </li>
-                        <li class="fragment"><strong>Alternative:</strong> GPT-4.1
-                            <ul style="font-size: 0.8em;">
-                                <li>Creative solutions</li>
-                                <li>Specific use cases</li>
+                        <li><span class="accent">Claude Haiku 4.x</span> (For Speed)
+                            <ul class="small">
+                                <li>Faster responses for quick tasks</li>
+                            </ul>
+                        </li>
+                        <li><span class="accent">GPT-4.1</span> (Alternative)
+                            <ul class="small">
+                                <li>Sometimes better at creative solutions</li>
                             </ul>
                         </li>
                     </ul>
+                    <blockquote>
+                        Don't settle for the first result. Different models have different strengths - experiment!
+                    </blockquote>
+                    <aside class="notes">
+                        You can switch models anytime using the model picker.
+                        Claude Sonnet is recommended for most tasks - it's particularly strong at understanding legacy code and refactoring.
+                        Haiku is faster for simple queries.
+                        GPT-4.1 might offer more creative approaches to new implementations.
+                        The key: if you're not getting good results, try a different model before giving up.
+                    </aside>
                 </section>
             </section>
 
-            <!-- Section 2: Examples -->
+            <!-- Section 2: Practical Examples -->
             <section>
-                <section data-background-color="#16a085">
-                    <h2>2. Practical Examples</h2>
-                    <span class="time-badge">15-20 minutes</span>
+                <section>
+                    <h2>Practical Examples & Use Cases</h2>
+                    <p>See Copilot in action with real-world scenarios</p>
+                    <aside class="notes">
+                        Now let's move from theory to practice. These are real examples you can use today.
+                        Each example demonstrates specific Copilot capabilities and includes prompts you can adapt.
+                    </aside>
                 </section>
 
                 <section>
-                    <h3>Example 1: Generate README</h3>
-                    <span class="demo-badge">DEMO</span>
-                    <pre><code class="language-markdown" data-trim>
-Create a comprehensive README.md for this project. Include:
+                    <h3>Example 1: Generate Professional README Files</h3>
+                    <p><strong>The Scenario:</strong> Your project lacks proper documentation</p>
+                    <pre><code class="language-plaintext">Create a comprehensive README.md for this project. Include:
 - Project overview and purpose
 - Installation instructions
 - Usage examples with code snippets
@@ -119,97 +298,93 @@ Create a comprehensive README.md for this project. Include:
 - Contributing guidelines
 - License information
 
-Analyze the codebase to understand the tech stack.
-                    </code></pre>
-                    <p class="fragment" style="font-size: 0.8em;">✨ Copilot analyzes your entire codebase for context</p>
+Analyze the codebase to understand the tech stack.</code></pre>
+                    <p class="small"><strong>Key Insight:</strong> Agents analyze your actual code structure to create accurate, tailored documentation</p>
+                    <aside class="notes">
+                        This is one of the most valuable uses of Copilot - generating documentation that actually matches your implementation.
+                        The agent reads your package.json, source files, and project structure.
+                        You're not getting generic templates, you're getting documentation specific to YOUR project.
+                        Use Agent mode with #codebase context for best results.
+                    </aside>
                 </section>
 
                 <section>
                     <h3>Example 2: Project Assessment</h3>
-                    <pre><code class="language-markdown" data-trim>
-Analyze this codebase and provide:
+                    <pre><code class="language-plaintext">Analyze this codebase and provide:
 1. Architecture overview (patterns, structure)
 2. Technology stack and dependencies
 3. Code quality assessment
 4. Security concerns or vulnerabilities
 5. Technical debt areas
-6. Recommended improvements prioritized by impact
-                    </code></pre>
-                    <p class="fragment" style="font-size: 0.8em;">Perfect for inheriting legacy code or planning refactors</p>
+6. Recommended improvements prioritized by impact</code></pre>
+                    <p><strong>What Copilot identifies:</strong></p>
+                    <ul class="small">
+                        <li>Outdated dependencies with vulnerabilities</li>
+                        <li>Code smells and anti-patterns</li>
+                        <li>Missing error handling</li>
+                        <li>Performance bottlenecks</li>
+                    </ul>
+                    <aside class="notes">
+                        This is like having a code review from a senior architect on demand.
+                        The analysis typically takes a few minutes but provides insights that would take hours of manual review.
+                        This is incredibly valuable when inheriting legacy code or planning technical debt paydown.
+                        The assessment can inform sprint planning and help prioritize improvements.
+                    </aside>
                 </section>
 
                 <section>
-                    <h3>Example 3: Test Generation</h3>
-                    <span class="demo-badge">DEMO</span>
-                    <div style="font-size: 0.65em;">
-                        <p><strong>Basic Prompt:</strong></p>
-                        <pre><code class="language-markdown" data-trim>
-Generate unit tests for the UserService class.
-Include happy path, edge cases, and error handling.
-Use Jest framework.
-                        </code></pre>
-                        
-                        <p class="fragment" style="margin-top: 15px;"><strong>Advanced Prompt:</strong></p>
-                        <pre class="fragment"><code class="language-markdown" data-trim>
-Create comprehensive test suite for UserService:
-- Unit tests with 80%+ coverage
-- Mock external dependencies (database, APIs)
-- Test data factories for fixtures
-- Follow AAA pattern (Arrange, Act, Assert)
-- Include negative test cases
-- Use Jest with async/await
-                        </code></pre>
-
-                        <p class="fragment" style="margin-top: 15px;"><strong>Integration Test Prompt:</strong></p>
-                        <pre class="fragment"><code class="language-markdown" data-trim>
-Generate integration tests for /api/users endpoints:
-- Test full request/response cycle
-- Use test database with cleanup
-- Validate authentication middleware
-- Check error responses and status codes
-- Use Supertest library
-                        </code></pre>
+                    <h3>Example 3: Automated Test Generation</h3>
+                    <div class="two-column">
+                        <div>
+                            <h4>Basic Prompt:</h4>
+                            <pre><code class="language-plaintext" style="font-size: 0.5em;">Generate unit tests for UserService:
+- Happy path scenarios
+- Edge cases
+- Error handling
+- Mock external dependencies
+Use Jest</code></pre>
+                        </div>
+                        <div>
+                            <h4>Advanced Prompt:</h4>
+                            <pre><code class="language-plaintext" style="font-size: 0.5em;">Create comprehensive test suite:
+1. Unit tests (80%+ coverage)
+2. Integration tests for APIs
+3. Test data factories
+4. Mock setup for database
+5. Follow AAA pattern</code></pre>
+                        </div>
                     </div>
+                    <p class="accent">⚠️ Important: Always review tests to ensure they validate your specific business logic</p>
+                    <aside class="notes">
+                        Test generation is one of the best ROI activities with Copilot.
+                        Writing tests is tedious but critical. Copilot excels at generating test scaffolding and common test cases.
+                        The agent understands common patterns but doesn't know your unique business requirements.
+                        Always review generated tests, but you'll save hours of boilerplate writing.
+                    </aside>
                 </section>
 
                 <section>
                     <h3>Example 4: Meta-Prompting</h3>
-                    <p style="font-size: 0.9em;">Let Copilot write better prompts for you!</p>
-                    <pre><code class="language-markdown" data-trim>
-I need to ask Copilot to create a RESTful API 
-with authentication. Write a detailed prompt that 
-will help Copilot understand:
+                    <p>Let Copilot write better prompts for you</p>
+                    <pre><code class="language-plaintext">I need to ask Copilot to create a RESTful API 
+with authentication. Write a detailed prompt that includes:
 - Tech stack (Node.js/Express)
 - Auth requirements (JWT with refresh tokens)
 - Database schema
 - Error handling standards
-- API documentation needs
-                    </code></pre>
-                    <p class="fragment" style="font-size: 0.8em;">🎯 Copilot knows what context it needs!</p>
+- API documentation needs</code></pre>
+                    <p><strong>Why this works:</strong> Copilot knows what context it needs to generate better code</p>
+                    <aside class="notes">
+                        This is an advanced technique that experienced users leverage heavily.
+                        Copilot knows its own capabilities and limitations better than we do.
+                        By asking it to write prompts, you learn what information leads to better results.
+                        This helps establish team standards and creates reusable prompt templates.
+                    </aside>
                 </section>
 
                 <section>
-                    <h3>Example 5: Code Review</h3>
-                    <pre><code class="language-markdown" data-trim>
-Review this code for:
-1. Bugs and logic errors
-2. Performance issues
-3. Security vulnerabilities
-4. Best practice violations
-5. Readability and maintainability
-6. Missing error handling
-
-Suggest specific improvements with code examples.
-                    </code></pre>
-                    <p class="fragment" style="font-size: 0.8em;">Use before commits or for PR reviews</p>
-                </section>
-
-                <section>
-                    <h3>Example 6: Debugging with Context</h3>
-                    <span class="demo-badge">DEMO</span>
-                    <div style="font-size: 0.7em;">
-                        <pre><code class="language-markdown" data-trim>
-Analyze this error and suggest fixes:
+                    <h3>Example 5: Debugging with Context</h3>
+                    <pre><code class="language-plaintext" style="font-size: 0.5em;">Analyze this error and suggest fixes:
 
 Error: Cannot read property 'user' of undefined
     at UserController.getProfile (src/controllers/user.js:45)
@@ -217,80 +392,27 @@ Error: Cannot read property 'user' of undefined
 Context:
 - Express API endpoint: GET /api/users/:id/profile
 - Uses JWT authentication middleware
+- MongoDB database
 - Error occurs intermittently (5% of requests)
 
 Provide:
 1. Root cause analysis
 2. Specific code fix
-3. Prevention strategies
-4. Monitoring improvements
-                        </code></pre>
-                    </div>
+3. How to prevent similar issues
+4. Logging/monitoring improvements</code></pre>
+                    <aside class="notes">
+                        Debugging is where context really matters. The more information you provide, the better the analysis.
+                        Include the full error message, stack trace, what the code is trying to do, when it fails, and any recent changes.
+                        Copilot can identify race conditions, missing null checks, auth issues, and async/await problems.
+                    </aside>
                 </section>
 
                 <section>
-                    <h3>Debugging: What Copilot Identifies</h3>
-                    <ul style="font-size: 0.85em;">
-                        <li class="fragment">🔍 Race conditions and timing issues</li>
-                        <li class="fragment">✅ Missing null checks or validation</li>
-                        <li class="fragment">🔐 Authentication/session problems</li>
-                        <li class="fragment">💾 Database query issues</li>
-                        <li class="fragment">⚡ Async/await misuse</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Example 6: Performance Debugging</h3>
-                    <p style="font-size: 0.85em;">Advanced debugging for production issues</p>
-                    <pre style="font-size: 0.6em;"><code class="language-text" data-trim>
-I'm seeing performance degradation in production.
-Analyze this code and identify bottlenecks:
-
-[paste code]
-
-Metrics:
-- Response time increased from 200ms to 3s
-- CPU usage: 80%+
-- Started after deploying feature X
-
-Suggest optimizations with benchmark comparisons.
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h3>Example 7: API Migration</h3>
-                    <p style="font-size: 0.85em;">Express 4 → Express 5 + TypeScript</p>
-                    <pre style="font-size: 0.5em;"><code class="language-markdown" data-trim>
-Migrate this Express 4 JavaScript API to Express 5 with TypeScript:
-
-Requirements:
-1. Convert all routes to TypeScript with proper types
-2. Update deprecated Express methods
-3. Add request/response typing
-4. Implement proper error handling middleware
-5. Maintain backward compatibility with existing clients
-6. Add input validation with express-validator
-
-Current structure:
-- 15 route files
-- MongoDB with Mongoose
-- JWT authentication
-- REST endpoints
-
-Provide migration plan and convert the UserController as example.
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h3>Example 7: Migration Result</h3>
-                    <p style="font-size: 0.85em;">Express 4 → Express 5 + TypeScript</p>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.5em;">
-                        <div>
-                            <h4>Before (JavaScript)</h4>
-                            <pre><code class="language-javascript" data-trim>
-const express = require('express');
-const router = express.Router();
-
+                    <h3>Example 6: API Migration</h3>
+                    <div class="comparison">
+                        <div class="comparison-item bad">
+                            <h4>❌ Before (Express 4, JS)</h4>
+                            <pre><code class="language-javascript" style="font-size: 0.4em;">const express = require('express');
 router.get('/users/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -298,524 +420,529 @@ router.get('/users/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-});
-                            </code></pre>
+});</code></pre>
                         </div>
-                        <div>
-                            <h4>After (TypeScript)</h4>
-                            <pre><code class="language-typescript" data-trim>
-import { Router, Request, Response } from 'express';
-
-interface UserParams { id: string; }
+                        <div class="comparison-item good">
+                            <h4>✅ After (Express 5, TS)</h4>
+                            <pre><code class="language-typescript" style="font-size: 0.4em;">import { Router, Request, Response } from 'express';
 
 router.get('/users/:id',
   param('id').isMongoId(),
-  async (
-    req: Request&lt;UserParams&gt;,
-    res: Response
-  ): Promise&lt;void&gt; => {
+  async (req: Request, res: Response): Promise&lt;void&gt; => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+      return;
+    }
     const user = await User.findById(req.params.id);
     if (!user) {
-      res.status(404).json({ error: 'Not found' });
+      res.status(404).json({ error: 'User not found' });
       return;
     }
     res.json(user);
   }
-);
-                            </code></pre>
+);</code></pre>
                         </div>
                     </div>
-                </section>
-
-                <section>
-                    <h3>Example 7: Other Migration Scenarios</h3>
-                    <p style="font-size: 0.85em;">Copilot handles various migration types</p>
-                    <ul style="font-size: 0.8em;">
-                        <li class="fragment">REST to GraphQL conversion</li>
-                        <li class="fragment">jQuery to React/Vue/Angular</li>
-                        <li class="fragment">Class components to React Hooks</li>
-                        <li class="fragment">Upgrading authentication libraries (Passport, Auth0)</li>
-                        <li class="fragment">Database ORM changes (Sequelize to Prisma, TypeORM to Drizzle)</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Example 7: Breaking Changes Analysis</h3>
-                    <pre style="font-size: 0.6em;"><code class="language-text" data-trim>
-Analyze this codebase for breaking changes when upgrading from 
-[Library X v1] to [Library X v2]. Provide:
-1. List of breaking changes affecting our code
-2. Required code modifications
-3. Migration script if needed
-4. Testing strategy
-                    </code></pre>
-                    <p class="fragment" style="font-size: 0.8em;">Perfect for planning major version upgrades</p>
-                </section>
-
-                <section>
-                    <h3>Example 8: Regex & String Parsing</h3>
-                    <p style="font-size: 0.85em;">Log file parsing with regex</p>
-                    <pre style="font-size: 0.5em;"><code class="language-text" data-trim>
-Create a regex pattern and parser function to extract data from these logs:
-
-Sample log format:
-[2025-10-21 14:32:15] INFO [UserService] User login: user@aa.com IP: 192.168.1.100 - Success
-[2025-10-21 14:32:18] ERROR [PaymentService] Transaction failed: txn_123abc amount: $49.99 - Insufficient funds
-[2025-10-21 14:33:01] WARN [EmailService] Rate limit approaching: 950/1000 emails sent
-
-Extract:
-- Timestamp
-- Log level
-- Service name
-- Message details
-- Key-value pairs (user, IP, transaction ID, amount)
-
-Return as structured JSON.
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h3>Example 8: Parsing Result</h3>
-                    <p style="font-size: 0.85em;">Copilot excels at complex patterns!</p>
-                    <pre><code class="language-javascript" data-trim data-line-numbers="1-4|6-18">
-// Prompt: Parse AA log files
-const logPattern = /^\[(?&lt;timestamp&gt;[\d\-: ]+)\] 
-  (?&lt;level&gt;\w+) \[(?&lt;service&gt;\w+)\] 
-  (?&lt;message&gt;.+)$/;
-
-function parseLogEntry(logLine) {
-  const match = logLine.match(logPattern);
-  if (!match) return null;
-
-  const { timestamp, level, service, message } = match.groups;
-  
-  return {
-    timestamp: new Date(timestamp),
-    level,
-    service,
-    message
-  };
-}
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h3>Example 8: Data Validation</h3>
-                    <p style="font-size: 0.85em;">Airline-specific validation patterns</p>
-                    <pre style="font-size: 0.5em;"><code class="language-text" data-trim>
-Create validation functions with regex for:
-1. Airline booking reference (AA format: 6 alphanumeric characters)
-2. Flight numbers (AA1234, AA 1234, AA-1234)
-3. Frequent flyer numbers (AA + 7-9 digits)
-
-Include test cases and error messages.
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h3>Example 8: Validation Result</h3>
-                    <pre style="font-size: 0.45em;"><code class="language-javascript" data-trim>
-function isValidBookingReference(ref) {
-  const pattern = /^[A-Z0-9]{6}$/i;
-  return pattern.test(ref);
-}
-
-function parseFlightNumber(input) {
-  const pattern = /^([A-Z]{2})[\s\-]?(\d{1,4})$/i;
-  const match = input.match(pattern);
-  
-  if (!match) return null;
-  
-  return {
-    carrier: match[1].toUpperCase(),
-    number: match[2].padStart(4, '0'),
-    formatted: `${match[1].toUpperCase()}${match[2]}`
-  };
-}
-
-// Test cases
-console.assert(isValidBookingReference('ABC123') === true);
-console.assert(isValidBookingReference('abc123') === true);
-console.assert(isValidBookingReference('ABC12') === false);
-
-console.assert(parseFlightNumber('AA1234').formatted === 'AA1234');
-console.assert(parseFlightNumber('AA 234').number === '0234');
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h3>Example 8: Pro Tip</h3>
-                    <p style="font-size: 0.85em;">Ask Copilot to explain complex regex!</p>
-                    <pre style="font-size: 0.6em;"><code class="language-text" data-trim>
-Explain this regex in plain English and identify any issues:
-/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
-                    </code></pre>
-                    <p class="fragment" style="font-size: 0.7em; margin-top: 20px;">
-                        <strong>Copilot Response:</strong><br>
-                        "This regex matches strings that are at least 8 characters long, 
-                        contain at least one letter and one digit, but only allows letters 
-                        and digits (no special characters). Issue: It doesn't enforce an 
-                        uppercase letter requirement if that's needed for password complexity."
-                    </p>
-                </section>
-
-                <section>
-                    <h3>Example 9: Dockerization</h3>
-                    <span class="demo-badge">DEMO</span>
-                    <div style="font-size: 0.7em;">
-                        <pre><code class="language-markdown" data-trim>
-Create Docker setup for this Node.js/Express application:
-
-Requirements:
-- Multi-stage build for optimization
-- Non-root user for security
-- Health check endpoint
-- Environment variable configuration
-- Development vs Production builds
-- Docker Compose with PostgreSQL and Redis
-
-Project structure:
-- Node.js 20
-- Express API
-- PostgreSQL database
-- Redis for caching
-- Runs on port 3000
-                        </code></pre>
-                    </div>
-                </section>
-
-                <section>
-                    <h3>Example 9: Dockerization</h3>
-                    <span class="demo-badge">DEMO</span>
-                    <pre style="font-size: 0.45em;"><code class="language-dockerfile" data-trim>
-# Multi-stage build for Node.js app
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY . .
-
-FROM node:20-alpine
-RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
-WORKDIR /app
-COPY --from=builder --chown=nodejs:nodejs /app ./
-USER nodejs
-EXPOSE 3000
-
-HEALTHCHECK --interval=30s --timeout=3s \
-  CMD node -e "require('http').get('http://localhost:3000/health')"
-
-CMD ["node", "server.js"]
-                    </code></pre>
-                    <p class="fragment" style="font-size: 0.7em;">✅ Security best practices included automatically!</p>
-                </section>
-
-                <section>
-                    <h3>Example 9: Docker Compose</h3>
-                    <p style="font-size: 0.85em;">Complete stack with database and cache</p>
-                    <pre style="font-size: 0.35em;"><code class="language-yaml" data-trim>
-version: '3.8'
-services:
-  app:
-    build: .
-    ports: ["3000:3000"]
-    environment:
-      DATABASE_URL: postgres://user:password@postgres:5432/mydb
-      REDIS_URL: redis://redis:6379
-    depends_on:
-      postgres: { condition: service_healthy }
-    networks: [app-network]
-
-  postgres:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_DB: mydb
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user"]
-    networks: [app-network]
-
-  redis:
-    image: redis:7-alpine
-    networks: [app-network]
-
-networks:
-  app-network:
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h3>Example 9: CI/CD Integration</h3>
-                    <pre style="font-size: 0.55em;"><code class="language-text" data-trim>
-Extend the Docker setup with:
-1. GitHub Actions workflow for building and pushing to registry
-2. Kubernetes deployment manifests (deployment, service, ingress)
-3. Helm chart for configurable deployments
-4. Security scanning (Trivy/Snyk)
-5. Multi-architecture builds (amd64/arm64)
-
-Registry: Azure Container Registry
-Cluster: AKS (Azure Kubernetes Service)
-                    </code></pre>
-                    <p class="fragment" style="font-size: 0.75em;">🚀 Copilot can generate complete CI/CD pipelines!</p>
+                    <aside class="notes">
+                        Migrations are tedious and error-prone. Copilot excels at these systematic transformations.
+                        It can handle framework upgrades, REST to GraphQL conversions, ORM changes.
+                        The key is providing clear requirements and examples of the patterns you want.
+                        Always test thoroughly, but Copilot saves countless hours on boilerplate conversion.
+                    </aside>
                 </section>
             </section>
 
-            <!-- Section 3: Reusable Assets -->
+            <!-- Section 3: Building Reusable Assets -->
             <section>
-                <section data-background-color="#8e44ad">
-                    <h2>3. Building Reusable Assets</h2>
-                    <span class="time-badge">10 minutes</span>
+                <section>
+                    <h2>Building Reusable Assets</h2>
+                    <p>Don't start from scratch every time</p>
+                    <aside class="notes">
+                        The most efficient Copilot users build libraries of prompts, instructions, and custom agents.
+                        These assets encode your team's best practices and common workflows.
+                        Think of them as guardrails that keep Copilot aligned with your standards.
+                    </aside>
                 </section>
 
                 <section>
-                    <h3>Community Resources</h3>
-                    <p style="font-size: 0.9em;">
-                        <a href="https://github.com/github/awesome-copilot" target="_blank">
-                            github.com/github/awesome-copilot
-                        </a>
-                    </p>
-                    <p style="font-size: 0.8em;">Community-contributed instructions, prompts, and configurations</p>
-                    <ul style="font-size: 0.8em;">
-                        <li class="fragment">Reusable prompt templates</li>
-                        <li class="fragment">Custom instructions for frameworks</li>
-                        <li class="fragment">Chat modes for specific tasks</li>
-                        <li class="fragment">Best practices from the community</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Custom Assets Types</h3>
-                    <div style="font-size: 0.8em;">
-                        <ol>
-                            <li class="fragment"><strong>.prompt</strong> - Reusable prompt templates</li>
-                            <li class="fragment"><strong>.instructions.md</strong> - Guide Copilot's behavior</li>
-                            <li class="fragment"><strong>.chatmode.md</strong> - Specialized chat modes</li>
-                        </ol>
-                    </div>
-                </section>
-
-                <section>
-                    <h3>Recommended Workspace Structure</h3>
-                    <pre style="font-size: 0.6em;"><code class="language-plaintext" data-trim>
-your-project/
+                    <h3>Custom Assets Architecture</h3>
+                    <pre><code class="language-plaintext">your-project/
 ├── .github/
-│   └── copilot/
-│       ├── prompts/
-│       │   ├── create-readme.prompt
-│       │   ├── generate-tests.prompt
-│       │   └── code-review.prompt
-│       ├── instructions/
-│       │   ├── testing.instructions.md
-│       │   └── api-design.instructions.md
-│       └── chatmodes/
-│           └── architect.chatmode.md
-└── README.md
-                    </code></pre>
+│     ├── prompts/
+│     │   ├── create-readme.prompt
+│     │   ├── generate-tests.prompt
+│     │   └── code-review.prompt
+│     ├── instructions/
+│     │   ├── testing.instructions.md
+│     │   ├── api-design.instructions.md
+│     │   └── security.instructions.md
+│     └── agents/
+│         ├── docs-agent.md
+│         ├── test-agent.md
+│         └── security-agent.md
+└── README.md</code></pre>
+                    <aside class="notes">
+                        This is the recommended file structure for custom assets.
+                        Store them in .github/ so they're version-controlled with your code.
+                        Prompts are reusable templates for common tasks.
+                        Instructions guide Copilot's behavior for specific domains.
+                        Agents are specialized AI assistants with defined roles.
+                    </aside>
                 </section>
 
                 <section>
-                    <h3>Team Benefits</h3>
-                    <ul style="font-size: 0.85em;">
-                        <li class="fragment">✅ Consistent code generation across team</li>
-                        <li class="fragment">📚 Codified best practices</li>
-                        <li class="fragment">🚀 Faster onboarding</li>
-                        <li class="fragment">⏱️ Reduced prompt iteration time</li>
+                    <h3>Prompts (.prompt files)</h3>
+                    <p>Pre-written templates you can invoke quickly</p>
+                    <pre><code class="language-markdown">
+---
+agent: 'agent'
+description: 'Create a README.md file for the project'
+---
+
+Create a professional README.md following this structure:
+- Badge section (build status, coverage, version)
+- Project description with clear value proposition
+- Quick start (&lt; 5 minutes to first result)
+- Detailed installation
+- Usage examples with code blocks
+- API reference
+- Contributing guidelines
+- License
+
+Tailor content based on detected language and framework.</code></pre>
+                    <p class="small">Save in <code>.github/prompts/create-readme.prompt.md</code></p>
+                    <aside class="notes">
+                        Prompts eliminate the need to retype common instructions.
+                        They ensure consistency across your team.
+                        Anyone can invoke these prompts and get standardized output.
+                        Build a library for your most frequent tasks: API endpoints, tests, config files, CI/CD pipelines.
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Instructions (.instructions.md files)</h3>
+                    <p>Style guides that Copilot automatically follows</p>
+                    <pre><code class="language-yaml" style="font-size: 1em;">---
+description: 'API Design Standards'
+applyTo: '**/*.java'
+---
+When creating REST APIs:
+- Use plural nouns for resource names (/users, not /user)
+- Implement proper HTTP status codes
+- Include pagination for list endpoints (page, limit, total)
+- Use snake_case for JSON keys
+- Always validate input with detailed error messages
+- Add OpenAPI/Swagger documentation
+- Implement rate limiting headers</code></pre>
+                    <p><strong>When to create:</strong> Team-specific standards, security practices, architectural patterns</p>
+                    <p class="small">Save in <code>.github/instructions/api-design.instructions.md</code></p>
+
+                    <aside class="notes">
+                        Instructions are like living style guides that Copilot follows automatically.
+                        Instead of catching violations in code review, the code is generated correctly from the start.
+                        They're especially valuable for specialized frameworks, security practices, and naming conventions.
+                        New team members inherit these standards immediately through Copilot.
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Custom Agents (.agent.md files)</h3>
+                    <p>Specialized AI assistants for specific workflows</p>
+                    <div class="two-column">
+                        <div>
+                            <h4>Agent Ideas:</h4>
+                            <ul class="small">
+                                <li>@docs-agent - Documentation writer</li>
+                                <li>@test-agent - QA engineer</li>
+                                <li>@lint-agent - Style fixer</li>
+                                <li>@api-agent - REST endpoint builder</li>
+                                <li>@security-agent - Security reviewer</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>What Makes a Great Agent:</h4>
+                            <ul class="small">
+                                <li>Clear role and expertise</li>
+                                <li>Specific commands it can use</li>
+                                <li>Code examples of preferred style</li>
+                                <li>Defined boundaries</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <aside class="notes">
+                        Custom agents are beyond the four built-in agents.
+                        They're specialized assistants with narrow, focused expertise.
+                        A test agent only writes tests. A docs agent only writes documentation.
+                        This focus produces better results than a general-purpose agent.
+                        Start with one agent for your most common task and iterate.
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Agent Structure Example</h3>
+                    <pre><code class="language-markdown" style="font-size: 1em;">---
+name: test-agent
+description: QA engineer who writes comprehensive tests
+---
+
+You are a quality software engineer who writes comprehensive tests.
+
+## Commands
+- Run tests: `npm test`
+- Coverage: `npm run test:coverage`
+
+## Code style
+✅ Good - descriptive names, proper mocking
+❌ Bad - vague names, no assertions
+
+## Boundaries
+- ✅ Always do: Write to `tests/` directory, include edge cases
+- ⚠️ Ask first: Before modifying test configuration
+- 🚫 Never do: Remove failing tests, modify source code</code></pre>
+                    <aside class="notes">
+                        This shows the structure of an effective agent file.
+                        Clear role, specific commands, code examples, and boundaries.
+                        The three-tier boundary system is key: always do, ask first, never do.
+                        Pro tip: Use Copilot itself to generate agent files - it knows what makes a good agent!
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Team Benefits of Custom Assets</h3>
+                    <ul>
+                        <li><span class="accent">Enforce Standards</span> - Without constant vigilance</li>
+                        <li><span class="accent">Instant Onboarding</span> - New developers inherit team knowledge immediately</li>
+                        <li><span class="accent">Reduce Context Switching</span> - Common tasks become one-click operations</li>
+                        <li><span class="accent">Improve Code Review</span> - Less time on style, more on architecture</li>
                     </ul>
+                    <div class="highlight-box">
+                        <p><strong>Key Principle:</strong> Custom assets only work if they're version-controlled and shared. Treat them like documentation that lives with your code.</p>
+                    </div>
+                    <aside class="notes">
+                        The real value comes from team-wide adoption.
+                        Custom assets sitting on one developer's machine don't help anyone.
+                        Store them in your repo, version control them, and iterate based on feedback.
+                        Start small: 2-3 instruction files and a prompt library for frequent tasks.
+                        Build incrementally as you identify patterns worth encoding.
+                    </aside>
                 </section>
             </section>
 
-            <!-- Section 4: Best Practices -->
+            <!-- Section 4: Best Practices & Tips -->
             <section>
-                <section data-background-color="#c0392b">
-                    <h2>4. Best Practices & Tips</h2>
-                    <span class="time-badge">5 minutes</span>
+                <section>
+                    <h2>Best Practices & Tips</h2>
+                    <p>Effective patterns for AI-assisted development</p>
+                    <aside class="notes">
+                        Now let's talk about best practices that separate good Copilot users from great ones.
+                        These aren't just tips - they're battle-tested workflows from experienced developers.
+                    </aside>
                 </section>
 
                 <section>
-                    <h3>Prompt Engineering: Be Specific</h3>
-                    <div style="font-size: 0.8em;">
-                        <p>❌ <span style="color: #e74c3c;">Vague:</span> "Make this better"</p>
-                        <p>✅ <span style="color: #27ae60;">Specific:</span> "Refactor this function to use async/await, add input validation, and include JSDoc comments"</p>
-                    </div>
+                    <h3>5 AI-Assisted Coding Techniques</h3>
+                    <ol>
+                        <li><span class="accent">Let AI Read Your Design Docs First</span>
+                            <p class="small">Provide complete context before asking for code</p>
+                        </li>
+                        <li><span class="accent">Use One AI to Code, Another to Review</span>
+                            <p class="small">Generate code, then review it in a fresh session</p>
+                        </li>
+                        <li><span class="accent">Automate Tests and Validation</span>
+                            <p class="small">Let AI generate and maintain test suites</p>
+                        </li>
+                        <li><span class="accent">AI-Driven Refactoring</span>
+                            <p class="small">Modernize legacy code safely and incrementally</p>
+                        </li>
+                        <li><span class="accent">Work Asynchronously</span>
+                            <p class="small">Use multiple chat sessions for parallel tasks</p>
+                        </li>
+                    </ol>
+                    <aside class="notes">
+                        These five techniques are the foundation of efficient AI-assisted development.
+                        #1 - Don't give isolated prompts. Share design docs and architecture first.
+                        #2 - Fresh perspective catches issues the generator missed.
+                        #3 - Testing is tedious but critical. Perfect for delegation to AI.
+                        #4 - Legacy code modernization without the pain.
+                        #5 - Don't wait for responses. Queue up distinct tasks in parallel.
+                    </aside>
                 </section>
 
                 <section>
-                    <h3>Provide Context</h3>
-                    <pre style="font-size: 0.55em;"><code class="language-markdown" data-trim>
-I'm working on a Node.js microservice that processes 
-payment webhooks. The current error handling doesn't 
-distinguish between retryable and permanent failures. 
-
-Update the code to:
-- Retry transient errors (network, timeout) with 
-  exponential backoff
-- Log permanent errors (auth, validation) and alert
-- Use dead letter queue for failed attempts after 3 retries
-                    </code></pre>
-                    <p class="fragment" style="font-size: 0.8em;">More context = Better results</p>
-                </section>
-
-                <section>
-                    <h3>When to Use Each Mode</h3>
-                    <table style="font-size: 0.6em; width: 100%;">
+                    <h3>Choosing the Right Interaction</h3>
+                    <table style="font-size: 0.6em;">
                         <thead>
                             <tr>
                                 <th>Task Type</th>
-                                <th>Mode</th>
+                                <th>Method</th>
                                 <th>Why</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="fragment">
+                            <tr>
                                 <td>Quick syntax question</td>
-                                <td>Ask</td>
-                                <td>Faster, no file access needed</td>
+                                <td>Ask agent</td>
+                                <td>Fast, focused answer</td>
                             </tr>
-                            <tr class="fragment">
+                            <tr>
                                 <td>Refactoring multiple files</td>
-                                <td>Agent</td>
-                                <td>Needs codebase context</td>
+                                <td>Agent mode</td>
+                                <td>Autonomous, reads workspace</td>
                             </tr>
-                            <tr class="fragment">
-                                <td>Explaining a concept</td>
-                                <td>Ask</td>
-                                <td>Straightforward response</td>
+                            <tr>
+                                <td>Planning complex feature</td>
+                                <td>Plan agent</td>
+                                <td>Roadmap before changes</td>
                             </tr>
-                            <tr class="fragment">
-                                <td>Debugging complex issue</td>
-                                <td>Agent</td>
-                                <td>Can search and analyze</td>
+                            <tr>
+                                <td>Focused edit in current file</td>
+                                <td>Inline chat (Ctrl+I)</td>
+                                <td>Keeps you in flow</td>
                             </tr>
-                            <tr class="fragment">
-                                <td>Code snippet</td>
-                                <td>Ask</td>
-                                <td>Simple, contained</td>
+                            <tr>
+                                <td>Code while actively typing</td>
+                                <td>Inline suggestions</td>
+                                <td>Autocomplete on steroids</td>
                             </tr>
                         </tbody>
                     </table>
+                    <aside class="notes">
+                        Choosing the right interaction method is critical for efficiency.
+                        Inline suggestions for active coding - that's your autocomplete.
+                        Ask agent for quick questions - like Stack Overflow in your IDE.
+                        Agent mode for complex multi-file work - that's your autonomous coder.
+                        Plan agent when you want to see what will happen first.
+                        Inline chat for quick edits without context switching.
+                    </aside>
                 </section>
 
                 <section>
                     <h3>Security Considerations</h3>
-                    <ul style="font-size: 0.85em;">
-                        <li class="fragment">⚠️ Review all generated code before committing</li>
-                        <li class="fragment">🔐 Don't share sensitive data in prompts</li>
-                        <li class="fragment">✅ Validate security-critical code</li>
-                        <li class="fragment">🧪 Test generated code thoroughly</li>
-                        <li class="fragment">📜 Verify licensing for generated code</li>
-                    </ul>
-                </section>
-            </section>
-
-            <!-- Section 5: Next Steps -->
-            <section>
-                <section data-background-color="#27ae60">
-                    <h2>5. Next Steps & Resources</h2>
-                </section>
-
-                <section>
-                    <h3>Hands-On Practice</h3>
-                    <p style="font-size: 0.85em;">Use Copilot to:</p>
-                    <ul style="font-size: 0.75em;">
-                        <li class="fragment">Create a README.md</li>
-                        <li class="fragment">Perform a project assessment - create <em>hangar-improvement</em> stories in ADO</li>
-                        <li class="fragment">Create a <code>code standard</code> and save it as a markdown file in the project
-                            <ul style="font-size: 0.9em; margin-top: 10px;">
-                                <li>Use Copilot to enforce these standards in the IDE, before commit and during build</li>
+                    <div class="two-column">
+                        <div>
+                            <h4 style="color: #ff4444;">❌ Never Share:</h4>
+                            <ul class="small">
+                                <li>API keys or secrets</li>
+                                <li>Passwords</li>
+                                <li>Connection strings with credentials</li>
+                                <li>PII (personally identifiable info)</li>
+                                <li>Proprietary business logic</li>
                             </ul>
-                        </li>
-                        <li class="fragment">Generate and review tests for one module</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Create Custom Prompts</h3>
-                    <ul style="font-size: 0.8em;">
-                        <li class="fragment">Create a <code>prompts</code> folder in your project <code>.github</code></li>
-                        <li class="fragment">Save prompts that work well for your team</li>
-                        <li class="fragment">Share successful patterns with colleagues</li>
-                        <li class="fragment">Iterate based on real usage</li>
-                        <li class="fragment">Use Agent mode to refactor issues identified in project assessment or CodeScene</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Additional Resources</h3>
-                    <ul style="font-size: 0.75em;">
-                        <li>📚 <a href="https://docs.github.com/copilot" target="_blank">GitHub Copilot Docs</a></li>
-                        <li>⭐ <a href="https://github.com/github/awesome-copilot" target="_blank">Awesome Copilot</a></li>
-                        <li>🎫 <a href="https://developer.aa.com/access/github-copilot" target="_blank">Internal AA License</a></li>
-                        <li>💡 <strong>Community Patterns:</strong> Browse the awesome-copilot repo for inspiration</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h3>Questions to Explore</h3>
-                    <ul style="font-size: 0.85em;">
-                        <li class="fragment">How can Copilot help with your specific tech stack?</li>
-                        <li class="fragment">What repetitive tasks could you automate with better prompts?</li>
-                        <li class="fragment">Which team coding standards could become Copilot instructions?</li>
-                    </ul>
-                </section>
-            </section>
-
-            <!-- Quick Reference -->
-            <section>
-                <section data-background-color="#34495e">
-                    <h2>Quick Reference</h2>
-                    <p style="font-size: 0.8em;">Prompt Templates Cheat Sheet</p>
-                </section>
-
-                <section>
-                    <h3>Common Prompt Templates</h3>
-                    <div style="font-size: 0.6em; text-align: left;">
-                        <p><strong>Documentation:</strong></p>
-                        <code>Create comprehensive documentation for [file/module]: Purpose, API reference, usage examples</code>
-                        
-                        <p style="margin-top: 20px;"><strong>Code Review:</strong></p>
-                        <code>Review this code for: bugs, security issues, performance, best practices</code>
-                        
-                        <p style="margin-top: 20px;"><strong>Test Generation:</strong></p>
-                        <code>Generate [unit/integration] tests: Cover happy path and edge cases</code>
-                        
-                        <p style="margin-top: 20px;"><strong>Refactoring:</strong></p>
-                        <code>Refactor this code to: [improvements]. Maintain functionality and add tests.</code>
+                        </div>
+                        <div>
+                            <h4 style="color: #44ff44;">✅ Always Review:</h4>
+                            <ul class="small">
+                                <li>Authentication/authorization logic</li>
+                                <li>Input validation</li>
+                                <li>Cryptographic operations</li>
+                                <li>Database queries</li>
+                                <li>File system operations</li>
+                            </ul>
+                        </div>
                     </div>
+                    <blockquote>
+                        Treat Copilot's output like code from a junior developer - it might be excellent, but always needs review.
+                    </blockquote>
+                    <aside class="notes">
+                        Security is non-negotiable. Never include sensitive data in prompts.
+                        Your prompts may be used to improve the model, so treat them as potentially public.
+                        For security-critical code, use a multi-step approach: generate, review, verify, test, peer review.
+                        Copilot is a tool that amplifies your expertise, not a replacement for security judgment.
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Performance Tips</h3>
+                    <div class="two-column">
+                        <div>
+                            <h4>Faster Iteration:</h4>
+                            <ul class="small">
+                                <li>Keep prompts concise but complete</li>
+                                <li>Build a prompt library</li>
+                                <li>Use keyboard shortcuts</li>
+                                <li>Use inline chat for quick edits</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Better Results:</h4>
+                            <ul class="small">
+                                <li>Reference files explicitly</li>
+                                <li>Specify frameworks and versions</li>
+                                <li>Include error messages when debugging</li>
+                                <li>Mention performance requirements upfront</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="highlight-box">
+                        <p><strong>Context Management:</strong> Use #codebase, #file, #selection to add specific context. Choose the right agent mode for your task.</p>
+                    </div>
+                    <aside class="notes">
+                        These tips come from thousands of hours of Copilot usage.
+                        Concise prompts with complete context produce the best results.
+                        Build a library so you don't retype common instructions.
+                        Learn keyboard shortcuts to stay in flow.
+                        Explicit references help Copilot understand exactly what you want to modify.
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Common Pitfalls to Avoid</h3>
+                    <ul>
+                        <li><span class="accent">Over-reliance</span> - Don't stop thinking critically</li>
+                        <li><span class="accent">Ignoring edge cases</span> - AI generates happy-path code</li>
+                        <li><span class="accent">Skipping tests</span> - Fast code generation ≠ skip testing</li>
+                        <li><span class="accent">Copy-paste without understanding</span> - Always understand the code</li>
+                        <li><span class="accent">Not updating instructions</span> - Keep custom assets current</li>
+                        <li><span class="accent">Exposing sensitive data</span> - Never include secrets in prompts</li>
+                    </ul>
+                    <aside class="notes">
+                        These are the most common mistakes new Copilot users make.
+                        Copilot amplifies your expertise but isn't a replacement for engineering judgment.
+                        Always think about edge cases, error conditions, and boundary scenarios.
+                        Fast code generation makes testing even more important, not less.
+                        Always understand code before integrating it.
+                        Keep your custom assets updated as your standards evolve.
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>Continuous Feedback-Driven Workflow</h3>
+                    <div class="mermaid">
+flowchart LR
+    A[Design Docs] --> B[Generate Code]
+    B --> C[Review Fresh Perspective]
+    C --> D[Generate Update Tests]
+    D --> E[Refactor Modernize]
+    E --> F[Iterate Improve Prompts]
+    F --> A
+    
+    style A fill:#00507F,color:#fff
+    style B fill:#C60C30,color:#fff
+    style C fill:#00507F,color:#fff
+    style D fill:#C60C30,color:#fff
+    style E fill:#00507F,color:#fff
+    style F fill:#C60C30,color:#fff
+                    </div>
+                    <p class="small">Chain techniques into a continuous workflow for maximum efficiency</p>
+                    <aside class="notes">
+                        This is how experienced users work. It's not about using one technique - it's about chaining them.
+                        Start with design-driven prompting for clear context.
+                        Generate code, then review from a fresh perspective.
+                        Automate test generation to ensure everything stays verifiable.
+                        Use AI for refactoring and modernization in the background.
+                        Feed back results to refine your prompts over time.
+                        This creates a virtuous cycle where your AI workflows mature into reliable systems.
+                    </aside>
                 </section>
             </section>
 
-            <!-- Thank You -->
-            <section data-background-gradient="linear-gradient(to bottom, #1a1a1a, #2d2d2d)">
-                <h1>Thank You!</h1>
-                <h3>Questions?</h3>
-                <br>
-                <p style="font-size: 0.8em;">
-                    📧 Contact for questions and feedback
-                </p>
-                <p style="font-size: 0.7em;">
-                    🔗 <a href="https://developer.aa.com/access/github-copilot" target="_blank">Get Your Copilot License</a>
-                </p>
+            <!-- Closing Slide -->
+            <section>
+                <section class="title-slide">
+                    <h2>Key Takeaways</h2>
+                    <ul style="text-align: left; display: inline-block;">
+                        <li>Start small - Begin with documentation and tests</li>
+                        <li>Be specific - Detailed prompts produce better results</li>
+                        <li>Build assets - Create reusable prompts and instructions</li>
+                        <li>Stay secure - Always review code, never expose secrets</li>
+                        <li>Choose the right agent for the task</li>
+                        <li>Iterate and refine your approach continuously</li>
+                    </ul>
+                    <aside class="notes">
+                        Let's recap the key points.
+                        Start small with low-risk, high-value tasks like documentation.
+                        Be specific in your prompts - context is everything.
+                        Build custom assets to encode your team's standards.
+                        Security is non-negotiable - review everything, never share secrets.
+                        Choose the right interaction method for each task.
+                        This is an iterative process - you'll get better with practice.
+                    </aside>
+                </section>
+
+                <section class="title-slide">
+                    <h2>Remember</h2>
+                    <blockquote style="font-size: 1.2em;">
+                        Copilot is a tool that amplifies your expertise. The better developer you are, the more value you'll extract from it.
+                    </blockquote>
+                    <p style="margin-top: 2em;">Use it to eliminate repetitive work so you can focus on creative, high-impact aspects of software engineering.</p>
+                    <aside class="notes">
+                        This is the most important point: Copilot amplifies expertise, it doesn't replace it.
+                        The better you are at software engineering, the more effective you'll be with Copilot.
+                        Use it for what computers do well - repetitive tasks, boilerplate, pattern recognition.
+                        Save your brain power for what humans do well - creativity, architecture, business logic.
+                    </aside>
+                </section>
+
+                <section class="title-slide">
+                    <h1>Thank You!</h1>
+                    <p style="margin-top: 2em;">
+                        <strong>Get Your License:</strong><br>
+                        <a href="https://developer.aa.com/access/github-copilot">developer.aa.com/access/github-copilot</a>
+                    </p>
+                    <p style="margin-top: 2em;">
+                        <strong>Resources:</strong><br>
+                        <a href="https://docs.github.com/copilot">GitHub Copilot Docs</a><br>
+                        <a href="https://github.com/github/awesome-copilot">Awesome Copilot Repository</a>
+                    </p>
+                    <p style="margin-top: 2em; font-size: 0.8em;">Questions?</p>
+                    <aside class="notes">
+                        Thank you for your time today! I hope you found this valuable.
+                        Get your license at the link shown if you haven't already.
+                        Check out the Awesome Copilot repository for more prompts and examples.
+                        I'm happy to take questions now or connect afterward.
+                    </aside>
+                </section>
             </section>
 
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/notes/notes.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/markdown/markdown.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/plugin/highlight/highlight.js"></script>
-    <script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#C60C30',
+                primaryTextColor: '#000',
+                primaryBorderColor: '#00507F',
+                lineColor: '#00507F',
+                secondaryColor: '#00507F',
+                tertiaryColor: '#C0C0C0'
+            }
+        });
+        
         Reveal.initialize({
             hash: true,
+            center: false,
             transition: 'slide',
             transitionSpeed: 'default',
             controls: true,
             progress: true,
-            center: true,
-            slideNumber: 'c/t',
-            showSlideNumber: 'all',
+            slideNumber: true,
+            keyboard: true,
+            overview: true,
+            help: true,
             plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+
+        // Render mermaid diagrams after slide changes
+        Reveal.on('slidechanged', () => {
+            mermaid.run({
+                querySelector: '.mermaid',
+            });
+        });
+
+        // Initial render
+        Reveal.on('ready', () => {
+            mermaid.run({
+                querySelector: '.mermaid',
+            });
         });
     </script>
 </body>
