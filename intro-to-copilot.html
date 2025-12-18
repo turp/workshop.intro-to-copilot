@@ -223,16 +223,16 @@
                     <h3>When to Use Each Agent</h3>
                     <div class="mermaid">
 graph TD
-    Start[Need Help with Code] --> Question{What do you need?}
-    Question -->|Quick answer| Ask[Use Ask Agent]
-    Question -->|See plan first| Plan[Use Plan Agent]
-    Question -->|Targeted edit| Edit[Use Edit Agent]
-    Question -->|Complex multi-file| Agent[Use Agent Mode]
+    Start["Need Help with Code"] --> Question{"What do you need?"}
+    Question -->|"Quick answer"| Ask["Use Ask Agent"]
+    Question -->|"See plan first"| Plan["Use Plan Agent"]
+    Question -->|"Targeted edit"| Edit["Use Edit Agent"]
+    Question -->|"Complex multi-file"| Agent["Use Agent Mode"]
     
-    Ask --> AskEx["Syntax questions, API examples, Explanations"]
-    Plan --> PlanEx["Feature planning, Refactor scope, Architecture"]
-    Edit --> EditEx["Focused changes, Single file edits, Quick refactors"]
-    Agent --> AgentEx["Multi-file refactoring, Debugging, Complex features"]
+    Ask --> AskEx["Syntax questions<br/>API examples<br/>Explanations"]
+    Plan --> PlanEx["Feature planning<br/>Refactor scope<br/>Architecture"]
+    Edit --> EditEx["Focused changes<br/>Single file edits<br/>Quick refactors"]
+    Agent --> AgentEx["Multi-file refactoring<br/>Debugging<br/>Complex features"]
                     </div>
                     <aside class="notes">
                         Use this flowchart as your decision guide.
@@ -810,11 +810,11 @@ You are a quality software engineer who writes comprehensive tests.
                     <h3>Continuous Feedback-Driven Workflow</h3>
                     <div class="mermaid">
 flowchart LR
-    A[Design Docs] --> B[Generate Code]
-    B --> C[Review Fresh Perspective]
-    C --> D[Generate Update Tests]
-    D --> E[Refactor Modernize]
-    E --> F[Iterate Improve Prompts]
+    A["Design Docs"] --> B["Generate Code"]
+    B --> C["Review with<br/>Fresh Perspective"]
+    C --> D["Generate/Update<br/>Tests"]
+    D --> E["Refactor/<br/>Modernize"]
+    E --> F["Iterate/<br/>Improve Prompts"]
     F --> A
     
     style A fill:#00507F,color:#fff
