@@ -7,13 +7,12 @@
 ---
 
 ## Table of Contents
-1. [Getting Started: IDE Integration](#2-getting-started-ide-integration)
-2. [Shifting the Mindset for AI-Assisted Coding](#1-shifting-the-mindset-for-ai-assisted-coding)
-3. [The Small Batch Principle: Working Incrementally with AI](#2-5-the-small-batch-principle-working-incrementally-with-ai)
-4. [Practical Examples & Use Cases](#3-practical-examples--use-cases)
-5. [Building Reusable Assets](#4-building-reusable-assets)
-6. [Best Practices & Tips](#5-best-practices--tips)
-7. [Next Steps & Resources](#6-next-steps--resources)
+1. [Getting Started: IDE Integration](#1-getting-started-ide-integration)
+2. [Shifting the Mindset for AI-Assisted Coding](#2-shifting-the-mindset-for-ai-assisted-coding)
+3. [Practical Examples & Use Cases](#3-practical-examples--use-cases)
+4. [Building Reusable Assets](#4-building-reusable-assets)
+5. [Best Practices & Tips](#5-best-practices--tips)
+6. [Next Steps & Resources](#6-next-steps--resources)
 
 ---
 
