@@ -176,7 +176,7 @@ The difference: You're delegating entire subsystems, not individual functions.
 
 The true power of GitHub Copilot becomes evident when you see it in action. This section provides real-world examples that you can adapt to your daily development tasks.
 
-### Example 1: Generate Professional README Files
+### Exercise 1: Generate Professional README Files
 
 One of the most common yet time-consuming tasks in software development is creating comprehensive documentation. GitHub Copilot can analyze your entire codebase to generate professional README files that accurately reflect your project.
 
@@ -204,7 +204,7 @@ Analyze the codebase to understand the tech stack and dependencies.
 
 **Key Insight:** Because agents can read your workspace files, they will analyze your package.json, source files, and project structure to create documentation that actually matches your implementation. You're not getting generic templates – you're getting documentation tailored to your specific project.
 
-### Example 2: Project Assessment & Technical Debt Analysis
+### Exercise 2: Project Assessment & Technical Debt Analysis
 
 Inheriting a legacy codebase or preparing for a major refactor? Copilot can provide a comprehensive analysis that would typically take hours of manual review.
 
@@ -231,7 +231,7 @@ Analyze this codebase and provide:
 
 **Real-world value:** This analysis can inform sprint planning, help prioritize technical debt paydown, and provide ammunition for convincing stakeholders to allocate time for improvements.
 
-### Example 3: Automated Test Generation
+### Exercise 3: Automated Test Generation
 
 Test coverage is crucial, but writing tests is often deprioritized. Copilot can generate comprehensive test suites that significantly reduce the time investment.
 
@@ -311,7 +311,7 @@ describe('UserService', () => {
 
 ---
 
-### Example 4: Meta-Prompting (Let Copilot Write Your Prompts)
+### Exercise 4: Meta-Prompting (Let Copilot Write Your Prompts)
 
 Here's an advanced technique that experienced Copilot users leverage: asking Copilot to help you write better prompts.
 
@@ -1038,7 +1038,9 @@ One of the most valuable reusable assets you can create is a prompt template spe
 
 #### Step 2: Create the Prompt Template
 
-Based on the analysis, create a `.prompt` file at `.github/prompts/generate-unit-tests.prompt.md`:
+Create a `.prompt` file at `.github/prompts/generate-unit-tests.prompt.md`
+
+![Creating Reusable Prompts](content/copilot-create-prompt.gif)
 
 ```markdown
 # Unit Test Generation Prompt for [Your Project Name]
@@ -1214,7 +1216,6 @@ async def test_user_login(page: Page):
     await expect(page).to_have_url("https://example.com/dashboard")
     await expect(page.locator('[data-testid="welcome"]')).to_be_visible()
 ```
-```
 
 **When to create instructions:**
 - You have team-specific coding standards
@@ -1222,28 +1223,10 @@ async def test_user_login(page: Page):
 - You want to enforce security practices
 - You have naming conventions or architectural patterns
 
-**Example: api-design.instructions.md**
-```markdown
-# API Design Standards
+#### Exercise: Create a coding standard
 
-When creating REST APIs:
-- Use plural nouns for resource names (/users, not /user)
-- Implement proper HTTP status codes:
-  - 200: Success with body
-  - 201: Created (return new resource)
-  - 204: Success without body
-  - 400: Client error with validation details
-  - 401: Unauthorized
-  - 403: Forbidden
-  - 404: Not found
-  - 500: Server error
-- Include pagination for list endpoints (page, limit, total)
-- Use snake_case for JSON keys
-- Always validate input with detailed error messages
-- Include request/response examples in comments
-- Add OpenAPI/Swagger documentation
-- Implement rate limiting headers
-```
+![Creating Custom Instructions](content/copilot-create-instructions.gif)
+
 
 
 ### Custom Agents (.agent.md files)
@@ -1464,78 +1447,28 @@ You analyze code for security vulnerabilities.
 - 🚫 **Never do:** Commit fixes without user review
 ```
 
-#### Building Your First Agent
+#### Exercise: Building Your First Agent
 
 Start simple with one specific task. Don't build a "general helper"—pick something focused.
 
-**Quick start:**
-1. Choose a task (e.g., writing tests, fixing linting errors, writing docs)
-2. Create a file: `.github/agents/test-agent.md`
-3. Use this minimal template:
+Choose a task (e.g., writing tests, fixing linting errors, writing docs)
+
+Create a file: `.github/agents/test.agent.md`
+
+![Creating Custom Agents](content/copilot-create-agent.gif)
+
+Ask Copilot to help you create an agent
 
 ```markdown
----
-name: test-agent
-description: Writes unit tests for TypeScript functions
----
-
-You are a QA software engineer who writes comprehensive tests.
-
-## Commands
-- Run tests: `npm test`
-
-## Boundaries
-- ✅ Write to `tests/` directory
-- 🚫 Never modify source code or remove failing tests
-```
-
-4. Test it: `@test-agent write tests for UserService`
-5. Iterate: Add more detail as you discover what the agent needs to know
-
-**Pro tip:** Use Copilot to generate agent files! Open a new file at `.github/agents/test-agent.md` and prompt:
-
-```
-Create a test agent for this repository. It should:
-- Have the persona of a QA software engineer
-- Write tests for this codebase
-- Run tests and analyze results
-- Write to "tests/" directory only
-- Never modify source code or remove failing tests
-- Include specific examples of good test structure
-```
-
-Copilot will generate a complete agent file based on your codebase. Review it, adjust commands, and you're ready to use `@test-agent`.
-
-#### Agent Best Practices
-
-**Three-tier boundaries**: Use a clear hierarchy for constraints:
-- ✅ **Always do**: Safe operations that don't need permission
-- ⚠️ **Ask first**: Operations that need user confirmation
-- 🚫 **Never do**: Forbidden operations that could cause harm
-
-**Real code examples**: Show your preferred patterns:
-```markdown
-## Code style example
-
-✅ Good - descriptive names, proper error handling
-```typescript
-async function fetchUserById(id: string): Promise<User> {
-  if (!id) throw new Error('User ID required');
-  const response = await api.get(`/users/${id}`);
-  return response.data;
-}
-```
-
-❌ Bad - vague names, no error handling
-```typescript
-async function get(x) {
-  return await api.get('/users/' + x).data;
-}
+Create a Python development agent file. The agent should:
+- Write Python code following PEP 8 standards
+- Use type hints and docstrings
+- Write pytest tests
+- Run commands: pytest, black, pylint
+- Never modify .env files or commit secrets
 ```
 
 **Iterate based on mistakes**: The best agent files grow through iteration. When your agent makes a mistake, update the boundaries or add an example to prevent it.
-
-**Version control agents**: Store agent files in your repository alongside code. They're part of your team's development infrastructure.
 
 #### Extending Agents with Tools and MCP Servers
 
