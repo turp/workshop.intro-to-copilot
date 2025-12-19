@@ -340,7 +340,9 @@ Write a detailed prompt that will help Copilot understand:
 - Documenting complex requirements before implementation
 - Training junior developers on how to communicate technical requirements
 
-### Example 5: Code Review Assistance
+### Other Ways to Use Copilot
+
+#### Code Review Assistance
 
 Code reviews are essential but time-consuming. Copilot can perform an initial review, catching common issues before human reviewers need to look at the code.
 
@@ -378,7 +380,7 @@ Analyze this pull request:
 
 ---
 
-### Example 6: Debugging with Context
+#### Debugging with Context
 
 When applications throw errors in production, quickly identifying the root cause is critical. Copilot excels at analyzing error messages and stack traces when provided with proper context.
 
@@ -462,7 +464,7 @@ Metrics:
 Suggest optimizations with benchmark comparisons.
 ```
 
-### Example 7: API Migration & Framework Upgrades
+#### Migration & Framework Upgrades
 
 Migrating between framework versions or changing API patterns is tedious and error-prone. Copilot can automate much of this work while maintaining consistency.
 
@@ -580,11 +582,11 @@ Analyze this codebase for breaking changes when upgrading from
 4. Testing strategy
 ```
 
-### Example 8: Regex & Complex String Parsing
+#### Regex & Complex String Parsing
 
 Regular expressions are notoriously difficult to write and debug. Copilot excels at generating, explaining, and testing regex patterns.
 
-#### Use Case 1: Log File Parsing
+##### Use Case 1: Log File Parsing
 
 **Prompt:**
 ```
@@ -646,7 +648,7 @@ console.log(parseLogEntry(log));
 // }
 ```
 
-#### Use Case 2: Data Validation & Extraction
+##### Use Case 2: Data Validation & Extraction
 
 **Prompt:**
 ```
@@ -709,7 +711,7 @@ Copilot Response: "This regex matches strings that are at least 8 characters lon
 
 ---
 
-### Example 9: Environment Setup & Dockerization
+#### Environment Setup & Dockerization
 
 Containerizing applications ensures consistent environments across development, testing, and production. Copilot can generate production-ready Docker configurations following security best practices.
 
@@ -1027,6 +1029,157 @@ Tailor content based on detected language and framework.
 - Test suite scaffolding
 - Configuration file setup
 - CI/CD pipeline generation
+
+---
+
+### Exercise: Create a Reusable Unit Test Prompt
+
+One of the most valuable reusable assets you can create is a prompt template specifically tailored to your project's testing patterns. This exercise will help you build a prompt that generates consistent, high-quality unit tests that follow your team's conventions.
+
+#### Step 2: Create the Prompt Template
+
+Based on the analysis, create a `.prompt` file at `.github/prompts/generate-unit-tests.prompt.md`:
+
+```markdown
+# Unit Test Generation Prompt for [Your Project Name]
+
+Generate comprehensive unit tests for the specified code/module with the following requirements:
+
+## Testing Framework
+- Use [Jest/Pytest/JUnit/NUnit - specify your framework]
+- Follow [your project's] test file naming convention: [*.test.ts / test_*.py / etc.]
+
+## Test Structure
+- Organize tests using [describe/context blocks / test classes / etc.]
+- Use [AAA pattern / Given-When-Then / etc.]
+- Group related tests logically
+
+## Test Coverage Requirements
+- Cover all public methods/functions
+- Include happy path scenarios
+- Test edge cases and boundary conditions
+- Verify error handling for invalid inputs
+- Test all code branches (aim for 80%+ coverage)
+
+## Mocking and Dependencies
+- Mock external dependencies ([databases / APIs / file system / etc.])
+- Use [jest.mock() / unittest.mock / Mockito / etc.]
+- Avoid over-mocking - test real behavior when possible
+- Set up and tear down test fixtures properly
+
+## Naming Conventions
+- Test names should clearly describe what is being tested
+- Format: [should/test/it] + [action] + [expected result]
+- Examples from our codebase:
+  - "should return user profile when valid ID is provided"
+  - "should throw ValidationError for invalid email format"
+
+## Test Data
+- Use meaningful test data that reflects real scenarios
+- Follow our test data patterns: [factories / builders / fixtures]
+- Include examples for: [specific domain objects relevant to your project]
+
+## Assertions
+- Use specific, meaningful assertions
+- Verify both the result and side effects
+- Check error messages and types, not just that errors occur
+
+## Additional Requirements
+- Add comments explaining complex test scenarios
+- Include setup/teardown for test isolation
+- Follow our code style: [link to style guide or .instructions.md file]
+- Ensure tests are deterministic (no flaky tests)
+
+## Example Test Structure
+
+[Paste 1-2 examples of well-written tests from your codebase]
+
+---
+
+When generating tests, analyze the code to identify:
+- All execution paths and branches
+- Potential failure modes
+- Integration points that need mocking
+- Validation logic that needs verification
+```
+
+#### Step 3: Test Your Prompt
+
+Use your new prompt to generate tests for an existing module:
+
+```
+@copilot Use the generate-unit-tests prompt to create tests for [ClassName/ModuleName]
+
+#file .github/prompts/generate-unit-tests.prompt
+#file src/path/to/code-to-test.ts
+```
+
+#### Step 4: Review and Refine
+
+After generating tests, review them against your criteria:
+
+**Checklist:**
+- [ ] Do the tests follow your team's patterns?
+- [ ] Is coverage comprehensive (happy path, edge cases, errors)?
+- [ ] Are mocks used appropriately?
+- [ ] Do test names clearly describe what's being tested?
+- [ ] Are assertions specific and meaningful?
+- [ ] Can these tests catch real bugs?
+
+**If tests are missing something**, update your prompt template with:
+- More specific requirements
+- Better examples
+- Explicit instructions about what was missing
+
+#### Step 5: Share with Your Team
+
+Once your prompt produces consistent, high-quality tests:
+
+1. **Commit the prompt file** to your repository in `.github/prompts/`
+2. **Document usage** in your team's contribution guide
+3. **Gather feedback** from team members using the prompt
+4. **Iterate** based on the types of tests your project needs
+
+#### Success Criteria
+
+You'll know your prompt is effective when:
+- ✅ New team members can generate tests that match your standards
+- ✅ Generated tests catch real bugs when you introduce them intentionally
+- ✅ Code reviewers spend less time on test style feedback
+- ✅ Test coverage increases across your codebase
+- ✅ Tests are maintainable and easy to understand
+
+#### Advanced: Create Test-Specific Instructions
+
+For even better results, create a `.github/instructions/testing.instructions.md` file that Copilot will automatically reference when generating test code. This ensures tests always follow your standards, even without explicitly referencing the prompt.
+
+**Example content:**
+```markdown
+# Testing Standards for [Your Project]
+
+When writing tests for this project:
+
+## Framework and Tools
+- Primary framework: [Jest/Pytest/JUnit]
+- Assertion library: [expect/assert/should]
+- Mocking: [jest.mock/unittest.mock/Mockito]
+
+## Required Patterns
+[List must-follow patterns specific to your project]
+
+## Anti-patterns to Avoid
+- ❌ Over-mocking (mock only external dependencies)
+- ❌ Testing implementation details
+- ❌ Vague test names
+- ❌ Assertions without meaningful messages
+
+## Code Examples
+[Paste 2-3 exemplary tests that represent your gold standard]
+```
+
+With both the prompt template and instructions file in place, Copilot will consistently generate tests that align with your team's expectations.
+
+---
 
 ### Instructions (.instructions.md files)
 
