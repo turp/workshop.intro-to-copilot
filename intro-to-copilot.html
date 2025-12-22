@@ -110,6 +110,27 @@
             background: white;
             padding: 20px;
             border-radius: 10px;
+            overflow: visible !important;
+        }
+
+        .reveal .mermaid svg {
+            max-width: 100%;
+            height: auto;
+            overflow: visible !important;
+        }
+
+        .reveal .mermaid .node rect,
+        .reveal .mermaid .node circle,
+        .reveal .mermaid .node ellipse,
+        .reveal .mermaid .node polygon {
+            stroke-width: 2px;
+        }
+
+        .reveal .mermaid .nodeLabel {
+            font-size: 14px !important;
+            line-height: 1.4 !important;
+            padding: 8px !important;
+            white-space: pre-wrap !important;
         }
 
         .reveal blockquote {
@@ -221,21 +242,39 @@
 
                 <section>
                     <h3>When to Use Each Agent</h3>
-                    <div class="mermaid">
-graph TD
-    Start["Need Help with Code"] --> Question{"What do you need?"}
-    Question -->|"Quick answer"| Ask["Use Ask Agent"]
-    Question -->|"See plan first"| Plan["Use Plan Agent"]
-    Question -->|"Targeted edit"| Edit["Use Edit Agent"]
-    Question -->|"Complex multi-file"| Agent["Use Agent Mode"]
-    
-    Ask --> AskEx["Syntax questions<br/>API examples<br/>Explanations"]
-    Plan --> PlanEx["Feature planning<br/>Refactor scope<br/>Architecture"]
-    Edit --> EditEx["Focused changes<br/>Single file edits<br/>Quick refactors"]
-    Agent --> AgentEx["Multi-file refactoring<br/>Debugging<br/>Complex features"]
-                    </div>
+                    <table style="font-size: 0.7em; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Agent</th>
+                                <th>When to Use</th>
+                                <th>Examples</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong style="color: var(--aa-blue);">Ask</strong></td>
+                                <td>Need quick answers or explanations</td>
+                                <td>Syntax questions, API examples, understanding code</td>
+                            </tr>
+                            <tr>
+                                <td><strong style="color: var(--aa-blue);">Plan</strong></td>
+                                <td>Want to see implementation roadmap first</td>
+                                <td>Feature planning, refactor scope, architecture changes</td>
+                            </tr>
+                            <tr>
+                                <td><strong style="color: var(--aa-blue);">Edit</strong></td>
+                                <td>Making targeted edits to specific files</td>
+                                <td>Focused changes, single file edits, quick refactors</td>
+                            </tr>
+                            <tr>
+                                <td><strong style="color: var(--aa-red);">Agent</strong></td>
+                                <td>Complex tasks spanning multiple files</td>
+                                <td>Multi-file refactoring, debugging, complex features</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <aside class="notes">
-                        Use this flowchart as your decision guide.
+                        Use this table as your decision guide.
                         Ask agent for quick questions - think of it as Stack Overflow integrated into your IDE.
                         Plan agent when you want to understand what will happen before any code changes.
                         Edit agent for focused changes in specific files.
@@ -279,16 +318,35 @@ graph TD
             <!-- Section 2: Practical Examples -->
             <section>
                 <section>
-                    <h2>Practical Examples & Use Cases</h2>
-                    <p>See Copilot in action with real-world scenarios</p>
+                    <h2>Hands On: Practical Examples</h2>
+                    <p>Before we begin the exercises, let's set up your environment:</p>
+                    <ol style="font-size: 0.8em;">
+                        <li>Clone one of your existing projects</li>
+                        <li>Create a new branch
+                            <pre><code class="language-bash" style="font-size: 0.7em;">git checkout -b copilot-workshop</code></pre>
+                        </li>
+                        <li>Open in your editor
+                            <ul class="small">
+                                <li>Launch VS Code (or your preferred IDE)</li>
+                                <li>Verify Copilot is enabled (bottom right status bar)</li>
+                                <li>Open Copilot Chat view (Ctrl+Shift+I / Cmd+Shift+I)</li>
+                            </ul>
+                        </li>
+                    </ol>
                     <aside class="notes">
                         Now let's move from theory to practice. These are real examples you can use today.
                         Each example demonstrates specific Copilot capabilities and includes prompts you can adapt.
+
+                        This is important: students need a safe environment to experiment.
+                        Creating a branch means they can try things without fear of breaking their main code.
+                        Make sure everyone has Copilot enabled before proceeding.
+                        Check the bottom right of VS Code for the Copilot icon - it should show as active.
+                        If anyone has issues, help them now before moving forward.
                     </aside>
                 </section>
 
                 <section>
-                    <h3>Example 1: Generate Professional README Files</h3>
+                    <h3>Exercise: Generate Professional README Files</h3>
                     <p><strong>The Scenario:</strong> Your project lacks proper documentation</p>
                     <pre><code class="language-plaintext">Create a comprehensive README.md for this project. Include:
 - Project overview and purpose
@@ -309,7 +367,7 @@ Analyze the codebase to understand the tech stack.</code></pre>
                 </section>
 
                 <section>
-                    <h3>Example 2: Project Assessment</h3>
+                    <h3>Exercise: Project Assessment</h3>
                     <pre><code class="language-plaintext">Analyze this codebase and provide:
 1. Architecture overview (patterns, structure)
 2. Technology stack and dependencies
@@ -333,7 +391,7 @@ Analyze the codebase to understand the tech stack.</code></pre>
                 </section>
 
                 <section>
-                    <h3>Example 3: Automated Test Generation</h3>
+                    <h3>Exercise: Automated Test Generation</h3>
                     <div class="two-column">
                         <div>
                             <h4>Basic Prompt:</h4>
@@ -354,7 +412,7 @@ Use Jest</code></pre>
 5. Follow AAA pattern</code></pre>
                         </div>
                     </div>
-                    <p class="accent">⚠️ Important: Always review tests to ensure they validate your specific business logic</p>
+                    <p class="accent">⚠️ Important: Always review tests to ensure they make sense</p>
                     <aside class="notes">
                         Test generation is one of the best ROI activities with Copilot.
                         Writing tests is tedious but critical. Copilot excels at generating test scaffolding and common test cases.
@@ -364,16 +422,15 @@ Use Jest</code></pre>
                 </section>
 
                 <section>
-                    <h3>Example 4: Meta-Prompting</h3>
+                    <h3>Exercise: Meta-Prompting</h3>
                     <p>Let Copilot write better prompts for you</p>
-                    <pre><code class="language-plaintext">I need to ask Copilot to create a RESTful API 
-with authentication. Write a detailed prompt that includes:
-- Tech stack (Node.js/Express)
-- Auth requirements (JWT with refresh tokens)
-- Database schema
-- Error handling standards
-- API documentation needs</code></pre>
-                    <p><strong>Why this works:</strong> Copilot knows what context it needs to generate better code</p>
+                    <pre><code class="language-plaintext">
+Create a prompt that I can use to create unit tests for my project. 
+Goal is 80%+ coverage. 
+Follow AAA pattern. 
+Use the builder pattern to create test data.
+                    </code></pre>
+                    <p>Copilot knows what it needs to generate better code</p>
                     <aside class="notes">
                         This is an advanced technique that experienced users leverage heavily.
                         Copilot knows its own capabilities and limitations better than we do.
@@ -451,6 +508,7 @@ router.get('/users/:id',
                         Always test thoroughly, but Copilot saves countless hours on boilerplate conversion.
                     </aside>
                 </section>
+
             </section>
 
             <!-- Section 3: Building Reusable Assets -->
@@ -808,22 +866,47 @@ You are a quality software engineer who writes comprehensive tests.
 
                 <section>
                     <h3>Continuous Feedback-Driven Workflow</h3>
-                    <div class="mermaid">
-flowchart LR
-    A["Design Docs"] --> B["Generate<br/> Code"]
-    B --> C["Review with<br/>Fresh<br/> Perspective"]
-    C --> D["Generate or<br/>Update Tests"]
-    D --> E["Refactor/<br/>Modernize"]
-    E --> F["Iterate/<br/>Improve<br/> Prompts"]
-    F --> A
-    
-    style A fill:#00507F,color:#fff
-    style B fill:#C60C30,color:#fff
-    style C fill:#00507F,color:#fff
-    style D fill:#C60C30,color:#fff
-    style E fill:#00507F,color:#fff
-    style F fill:#C60C30,color:#fff
-                    </div>
+                    <table style="font-size: 0.75em; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th>Action</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: rgba(0, 80, 127, 0.2);">
+                                <td>1</td>
+                                <td><strong>Design Docs</strong></td>
+                                <td>Provide complete context before coding</td>
+                            </tr>
+                            <tr style="background: rgba(198, 12, 48, 0.2);">
+                                <td>2</td>
+                                <td><strong>Generate Code</strong></td>
+                                <td>AI creates initial implementation</td>
+                            </tr>
+                            <tr style="background: rgba(0, 80, 127, 0.2);">
+                                <td>3</td>
+                                <td><strong>Review</strong></td>
+                                <td>Fresh perspective catches issues</td>
+                            </tr>
+                            <tr style="background: rgba(198, 12, 48, 0.2);">
+                                <td>4</td>
+                                <td><strong>Test</strong></td>
+                                <td>Generate or update test suites</td>
+                            </tr>
+                            <tr style="background: rgba(0, 80, 127, 0.2);">
+                                <td>5</td>
+                                <td><strong>Refactor</strong></td>
+                                <td>Modernize and improve code</td>
+                            </tr>
+                            <tr style="background: rgba(198, 12, 48, 0.2);">
+                                <td>6</td>
+                                <td><strong>Iterate</strong></td>
+                                <td>Improve prompts, repeat cycle ↻</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <p class="small">Chain techniques into a continuous workflow for maximum efficiency</p>
                     <aside class="notes">
                         This is how experienced users work. It's not about using one technique - it's about chaining them.
@@ -907,13 +990,19 @@ flowchart LR
         mermaid.initialize({ 
             startOnLoad: true,
             theme: 'default',
+            flowchart: {
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 15
+            },
             themeVariables: {
                 primaryColor: '#C60C30',
                 primaryTextColor: '#000',
                 primaryBorderColor: '#00507F',
                 lineColor: '#00507F',
                 secondaryColor: '#00507F',
-                tertiaryColor: '#C0C0C0'
+                tertiaryColor: '#C0C0C0',
+                fontSize: '16px'
             }
         });
         
