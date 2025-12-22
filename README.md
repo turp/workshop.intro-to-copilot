@@ -1032,91 +1032,28 @@ Tailor content based on detected language and framework.
 
 ---
 
-### Exercise: Create a Reusable Unit Test Prompt
+#### Exercise: Create a Reusable Unit Test Prompt
 
 One of the most valuable reusable assets you can create is a prompt template specifically tailored to your project's testing patterns. This exercise will help you build a prompt that generates consistent, high-quality unit tests that follow your team's conventions.
 
-#### Step 2: Create the Prompt Template
-
-Create a `.prompt` file at `.github/prompts/generate-unit-tests.prompt.md`
+**Create the prompt**
+Create a `.prompt` file at `.github/prompts/create-unit-tests.prompt.md`
 
 ![Creating Reusable Prompts](content/copilot-create-prompt.gif)
 
+Ask Copilot to createa prompt for you:
+
 ```markdown
-# Unit Test Generation Prompt for [Your Project Name]
-
-Generate comprehensive unit tests for the specified code/module with the following requirements:
-
-## Testing Framework
-- Use [Jest/Pytest/JUnit/NUnit - specify your framework]
-- Follow [your project's] test file naming convention: [*.test.ts / test_*.py / etc.]
-
-## Test Structure
-- Organize tests using [describe/context blocks / test classes / etc.]
-- Use [AAA pattern / Given-When-Then / etc.]
-- Group related tests logically
-
-## Test Coverage Requirements
-- Cover all public methods/functions
-- Include happy path scenarios
-- Test edge cases and boundary conditions
-- Verify error handling for invalid inputs
-- Test all code branches (aim for 80%+ coverage)
-
-## Mocking and Dependencies
-- Mock external dependencies ([databases / APIs / file system / etc.])
-- Use [jest.mock() / unittest.mock / Mockito / etc.]
-- Avoid over-mocking - test real behavior when possible
-- Set up and tear down test fixtures properly
-
-## Naming Conventions
-- Test names should clearly describe what is being tested
-- Format: [should/test/it] + [action] + [expected result]
-- Examples from our codebase:
-  - "should return user profile when valid ID is provided"
-  - "should throw ValidationError for invalid email format"
-
-## Test Data
-- Use meaningful test data that reflects real scenarios
-- Follow our test data patterns: [factories / builders / fixtures]
-- Include examples for: [specific domain objects relevant to your project]
-
-## Assertions
-- Use specific, meaningful assertions
-- Verify both the result and side effects
-- Check error messages and types, not just that errors occur
-
-## Additional Requirements
-- Add comments explaining complex test scenarios
-- Include setup/teardown for test isolation
-- Follow our code style: [link to style guide or .instructions.md file]
-- Ensure tests are deterministic (no flaky tests)
-
-## Example Test Structure
-
-[Paste 1-2 examples of well-written tests from your codebase]
-
----
-
-When generating tests, analyze the code to identify:
-- All execution paths and branches
-- Potential failure modes
-- Integration points that need mocking
-- Validation logic that needs verification
+Create a reusable prompt to generate unit tests for this project. If a file name is not provided, ask for it.
 ```
 
-#### Step 3: Test Your Prompt
-
-Use your new prompt to generate tests for an existing module:
+**Test Your Prompt** 
 
 ```
-@copilot Use the generate-unit-tests prompt to create tests for [ClassName/ModuleName]
-
-#file .github/prompts/generate-unit-tests.prompt
-#file src/path/to/code-to-test.ts
+/create-unit-tests CustomerService.cs
 ```
 
-#### Step 4: Review and Refine
+**Review and Refine**
 
 After generating tests, review them against your criteria:
 
@@ -1133,55 +1070,16 @@ After generating tests, review them against your criteria:
 - Better examples
 - Explicit instructions about what was missing
 
-#### Step 5: Share with Your Team
+**Share with Your Team**
 
 Once your prompt produces consistent, high-quality tests:
 
-1. **Commit the prompt file** to your repository in `.github/prompts/`
-2. **Document usage** in your team's contribution guide
+1. **Document usage** in your team's contribution guide (ask Copilot to update the docs)
+2. **Commit the prompt file** to your repository in `.github/prompts/`
 3. **Gather feedback** from team members using the prompt
 4. **Iterate** based on the types of tests your project needs
 
-#### Success Criteria
-
-You'll know your prompt is effective when:
-- ✅ New team members can generate tests that match your standards
-- ✅ Generated tests catch real bugs when you introduce them intentionally
-- ✅ Code reviewers spend less time on test style feedback
-- ✅ Test coverage increases across your codebase
-- ✅ Tests are maintainable and easy to understand
-
-#### Advanced: Create Test-Specific Instructions
-
-For even better results, create a `.github/instructions/testing.instructions.md` file that Copilot will automatically reference when generating test code. This ensures tests always follow your standards, even without explicitly referencing the prompt.
-
-**Example content:**
-```markdown
-# Testing Standards for [Your Project]
-
-When writing tests for this project:
-
-## Framework and Tools
-- Primary framework: [Jest/Pytest/JUnit]
-- Assertion library: [expect/assert/should]
-- Mocking: [jest.mock/unittest.mock/Mockito]
-
-## Required Patterns
-[List must-follow patterns specific to your project]
-
-## Anti-patterns to Avoid
-- ❌ Over-mocking (mock only external dependencies)
-- ❌ Testing implementation details
-- ❌ Vague test names
-- ❌ Assertions without meaningful messages
-
-## Code Examples
-[Paste 2-3 exemplary tests that represent your gold standard]
-```
-
-With both the prompt template and instructions file in place, Copilot will consistently generate tests that align with your team's expectations.
-
----
+--- 
 
 ### Instructions (.instructions.md files)
 
@@ -1225,9 +1123,41 @@ async def test_user_login(page: Page):
 
 #### Exercise: Create a coding standard
 
+Create a `.instructions` file at `.github/instructions/java-code-standards.instructions.md`
 ![Creating Custom Instructions](content/copilot-create-instructions.gif)
 
+```markdown
+Create comprehensive code standards for this project. Include:
+- File and directory structure conventions
+- Naming conventions for variables, functions, classes, and files
+- Code formatting and style guidelines
+- Best practices and design patterns
+- Error handling standards
+- Testing requirements
+- Documentation and comment standards
+- Common anti-patterns to avoid
 
+Use clear, actionable language with code examples.
+```
+
+**Review and Revise**
+
+After Copilot generates the standards, review and verify:
+[] All major code elements are covered (variables, functions, classes, files)
+[] Error handling defined? 
+[] Testing expectations clear?
+[] Align with official style guides (PEP 8, Google Style, etc.)? 
+[] Code examples use correct syntax? Easy to understand?
+[] Rules specific and actionable? 
+[] Language is imperative ("Use X", not "Consider using X")
+[] Standards are realistic for your team's skill level
+[] Rules can be enforced or verified
+[] Length is reasonable (not overwhelming)
+[] Aligns with existing team preferences where appropriate
+
+**Extra Credit**
+[] Use a different model to review the code standards and identify any conflicting language.
+[] Ask Copilot to implement linting rules to enforce standards in the IDE and before committing changes
 
 ### Custom Agents (.agent.md files)
 
@@ -1296,7 +1226,7 @@ You are an expert [role] for this project.
 
 #### Ideas for Agents to Build
 
-**1. @docs-agent**
+**@docs-agent**
 Writes documentation by reading your code and generating API docs, function references, and tutorials.
 
 ```markdown
@@ -1322,7 +1252,7 @@ You are an expert technical writer for this project.
 - 🚫 **Never do:** Modify code in `src/`, edit config files, commit secrets
 ```
 
-**2. @test-agent**
+**@test-agent**
 Writes comprehensive tests with proper coverage and edge cases.
 
 ```markdown
@@ -1348,7 +1278,7 @@ You are a quality software engineer who writes comprehensive tests.
 - 🚫 **Never do:** Remove failing tests, modify source code
 ```
 
-**3. @lint-agent**
+**@lint-agent**
 Fixes code style and formatting without changing logic.
 
 ```markdown
@@ -1369,86 +1299,10 @@ You fix code style and formatting issues.
 - 🚫 **Never do:** Change code logic or business rules
 ```
 
-**4. @api-agent**
-Builds API endpoints following your framework patterns.
-
-```markdown
----
-name: api_agent
-description: REST API endpoint specialist
----
-
-You build RESTful API endpoints following our standards.
-
-## Project knowledge
-- **Framework:** Express.js with TypeScript
-- **Patterns:** Controller → Service → Repository
-- **Auth:** JWT with refresh tokens
-
-## Commands you can use
-- Start server: `npm run dev`
-- Test endpoint: `curl localhost:3000/api/health`
-- Run API tests: `npm run test:api`
-
-## Boundaries
-- ✅ **Always do:** Create routes, add validation, write tests
-- ⚠️ **Ask first:** Before modifying database schemas
-- 🚫 **Never do:** Change authentication logic without approval
-```
-
-**5. @refactor-agent**
-Modernizes and improves existing code safely.
-
-```markdown
----
-name: refactor_agent
-description: Code modernization specialist
----
-
-You refactor and modernize legacy code safely.
-
-## Your approach
-- Analyze code for patterns and dependencies
-- Make incremental, testable changes
-- Preserve existing functionality exactly
-- Run tests after each change
-
-## Boundaries
-- ✅ **Always do:** Run tests before and after, maintain behavior
-- ⚠️ **Ask first:** Before architectural changes
-- 🚫 **Never do:** Change behavior, skip tests, make breaking changes
-```
-
-**6. @security-agent**
-Reviews code for security vulnerabilities.
-
-```markdown
----
-name: security_agent
-description: Security analysis and hardening specialist
----
-
-You analyze code for security vulnerabilities.
-
-## Focus areas
-- Input validation and sanitization
-- Authentication and authorization
-- SQL injection and XSS vulnerabilities
-- Secrets and credential exposure
-- Dependency vulnerabilities
-
-## Commands you can use
-- Security scan: `npm audit`
-- Static analysis: `npm run security:check`
-
-## Boundaries
-- ✅ **Always do:** Identify issues, suggest fixes with examples
-- ⚠️ **Ask first:** Before implementing fixes that change behavior
-- 🚫 **Never do:** Commit fixes without user review
-```
 
 #### Exercise: Building Your First Agent
 
+Create an agent that is capa
 Start simple with one specific task. Don't build a "general helper"—pick something focused.
 
 Choose a task (e.g., writing tests, fixing linting errors, writing docs)
@@ -1470,38 +1324,92 @@ Create a Python development agent file. The agent should:
 
 **Iterate based on mistakes**: The best agent files grow through iteration. When your agent makes a mistake, update the boundaries or add an example to prevent it.
 
-#### Extending Agents with Tools and MCP Servers
+**Final Exercise: Security Vulnerability Remediation**
 
-Beyond custom agent definitions, you can extend agent capabilities with specialized tools:
+This exercise utilizes **meta-prompting** and **custom agents** to help you automate a common task encountered by many teams.
 
-**Model Context Protocol (MCP) Servers**
+**The Scenario:** 
+Peridically, someone on your team checks `Nuclei` to see if there are any new security vulerabilities that need to be resolved. Let's use Copilot to automate this repetive task and free you up to other interesting things. 
 
-MCP servers add powerful capabilities to your agents by connecting them to external data sources and services:
+**Your Task:**
+We are going to ask Copilot to:
+* create a github action to periodically check `Nuclei` for new vulerabilities
+* create an issue for each vulenability found
+* assign each issue to your `Github Copilot Agent` for it to work on
 
-- **Database access** - Query databases directly from chat
-- **API integration** - Connect to external APIs and services
-- **Custom tools** - Build specialized tools for your workflow
-- **File system operations** - Enhanced file manipulation beyond standard capabilities
+This allows the `agent` to create a branch and a pull request and work on resolving the vulerability. You guide it via comments in the PR. Once you are satisfied with the solution the agent has produced, you do a final review of the PR and merge it into the main branch.
 
-**Installing MCP Servers:**
+Execute the following prompt: 
 
-1. Browse available MCP servers in the Marketplace or community repositories
-2. Configure MCP servers in your VS Code settings
-3. Agents can automatically use available MCP tools when relevant
-4. Use the agent mode picker to see which tools are available
+```markdown
+create a prompt that will create a GitHub action that will check nucleus for Critical/High vulnerabilities on a daily basis and will create GitHub issues for each vulnerabilities and assign it to an agent to resolve.  
+```
 
-**Marketplace Extensions:**
+1. Try this prompt with different models (Claude Sonnet, GPT-4, Gemini) to see varied approaches
+2. After getting the generated prompt, use it to actually create the GitHub Action
+3. Review the generated workflow for security best practices (secret handling, permissions, etc.)
+4. Consider how you might adapt this pattern for other repetitive tasks
 
-VS Code extensions can also provide additional tools and capabilities to Copilot agents. Browse the Extensions Marketplace for Copilot-compatible extensions that add specialized functionality.
+Possible response from Copilot (Gemini 3 Flash):
 
-**Example use cases:**
-- Pull data from your company's internal APIs
-- Query production databases for debugging
-- Integrate with project management tools
-- Access documentation repositories
-- Connect to CI/CD systems
+```markdown
+Create a GitHub Action workflow in `.github/workflows/nuclei-daily-scan.yml` that:
+1. Runs on a daily schedule (cron: '0 0 * * *').
+2. Uses the `projectdiscovery/nuclei-action` to scan the project.
+3. Configures the scan to only report 'critical' and 'high' severity vulnerabilities.
+4. For each finding, uses the GitHub CLI (`gh issue create`) or a dedicated action to:
+   - Create a new GitHub Issue.
+   - Set the title to the vulnerability name and severity.
+   - Include the Nuclei output/remediation details in the issue body.
+   - Add a 'security' label.
+   - Assign the issue to a specific user (e.g., '@security-agent').
+5. Includes logic to check if an open issue for the same vulnerability already exists to avoid duplicates.
+6. Requires `contents: read` and `issues: write` permissions.
 
-Learn more: [Configuring MCP servers in VS Code](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
+```
+
+**Example Response from Claude Sonnet 4.5:**
+
+```markdown
+Create a GitHub Action workflow that:
+
+1. Runs daily at 2 AM UTC using a cron schedule
+2. Scans the repository for Critical and High severity vulnerabilities using npm audit (or applicable vulnerability scanner for the project type)
+3. Parses the vulnerability report and extracts:
+   - Vulnerability ID (CVE)
+   - Severity level (Critical/High only)
+   - Package name and version
+   - Description
+   - Recommended fix/upgrade path
+4. For each Critical or High vulnerability found:
+   - Creates a separate GitHub issue with:
+     - Title: "[SECURITY] [CRITICAL/HIGH] Vulnerability in <package-name>"
+     - Body containing: CVE ID, severity, affected package, description, remediation steps
+     - Labels: "security", "vulnerability", and severity level (critical/high)
+     - Assigns the issue to @github-actions bot or specified team member
+5. Prevents duplicate issues by checking if an issue for the same CVE already exists before creating
+6. Posts a summary comment on existing open vulnerability issues if the vulnerability is still present
+7. Automatically closes issues if the vulnerability has been resolved
+8. Requires GITHUB_TOKEN with permissions to create issues
+9. Include error handling and notifications if the scan fails
+10. Add a workflow status badge to the README
+
+The workflow should be saved in .github/workflows/vulnerability-scan.yml and should work for a Node.js/npm project. Include clear comments in the workflow file explaining each step.
+```
+
+**Key Differences Between Responses:**
+
+**Gemini 3 Flash** focuses on:
+- Using the official Nuclei Action from Project Discovery
+- Specific configuration for severity filtering
+- GitHub CLI for issue creation
+- Duplicate detection logic
+
+**Claude Sonnet 4.5** emphasizes:
+- Language-agnostic approach (adaptable to any project type)
+- Comprehensive issue lifecycle management (creation, updates, auto-closing)
+- Detailed issue content structure
+- Workflow status badge for visibility
 
 ---
 
