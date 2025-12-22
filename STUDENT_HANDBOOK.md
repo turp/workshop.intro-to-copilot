@@ -315,16 +315,16 @@ Use clear, actionable language with code examples.
 
 **Task:**
 1. Choose a focused task (writing tests, documentation, linting)
-2. Create: `.github/agents/[name].agent.md`
+2. Create: `.github/agents/coding-expert.agent.md`
 3. Use this template prompt:
 
 ```markdown
-Create a Python development agent file. The agent should:
-- Write Python code following PEP 8 standards
+Create a [python/java/c#] expert agent file. The agent should:
+- Write code following project code standards
 - Use type hints and docstrings
-- Write pytest tests
-- Run commands: pytest, black, pylint
-- Never modify .env files or commit secrets
+- Write tests
+- Follow TDD and SOLID principles
+- Include specific commands to run tests and linters
 ```
 
 **Agent File Structure:**

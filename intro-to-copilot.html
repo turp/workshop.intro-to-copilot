@@ -578,6 +578,29 @@ Tailor content based on detected language and framework.</code></pre>
                     </aside>
                 </section>
 
+
+                <section>
+                    <h3>Exercise: Create a Reusable Prompt</h3>
+                    <p>Build prompt templates your team can share</p>
+                    <p>Create .github/prompts/create-unit-tests.prompt.md</p>
+                    <p>Ask Copilot:</p>
+                    <pre><code class="language-markdown">
+Create a reusable prompt to generate unit tests for this project. 
+If a file name is not provided, ask for it.
+</code></pre>
+
+                    <p>Then test it:</p>
+                    <pre><code class="language-plaintext">
+/create-unit-tests UserService.cs
+</code></pre>
+                    <aside class="notes">
+                        Reusable prompts eliminate the need to retype common instructions.
+                        They ensure consistency across your team - anyone can invoke these prompts and get standardized output.
+                        Build a library for your most frequent tasks: API endpoints, tests, config files, CI/CD pipelines.
+                        Store them in .github/prompts/ so they're version-controlled with your code.
+                    </aside>
+                </section>
+
                 <section>
                     <h3>Instructions (.instructions.md files)</h3>
                     <p>Style guides that Copilot automatically follows</p>
@@ -605,19 +628,34 @@ When creating REST APIs:
                 </section>
 
                 <section>
+                    <h3>Exercise: Create Custom Instructions</h3>
+                    <p>Define coding standards that Copilot automatically follows</p>
+                    <p>Create  .github/instructions/code-standards.instructions.md</p>
+                    <pre><code class="language-markdown">
+Create comprehensive code standards for this project. Include:
+- File and directory structure conventions
+- Naming conventions (variables, functions, classes, files)
+- Code formatting and style guidelines
+- Error handling standards
+- Testing requirements
+- Common anti-patterns to avoid
+
+Use clear, actionable language with code examples.
+</code></pre>
+                    <p class="small">Instructions are like living style guides - code is generated correctly from the start</p>
+                    <aside class="notes">
+                        Instructions are powerful because they act automatically on matching files.
+                        Instead of catching violations in code review, the code is generated correctly from the start.
+                        They're especially valuable for specialized frameworks, security practices, and naming conventions.
+                        New team members inherit these standards immediately through Copilot.
+                        Review checklist: Are rules specific and actionable? Do code examples use correct syntax? Aligns with official style guides?
+                    </aside>
+                </section>
+
+                <section>
                     <h3>Custom Agents (.agent.md files)</h3>
                     <p>Specialized AI assistants for specific workflows</p>
                     <div class="two-column">
-                        <div>
-                            <h4>Agent Ideas:</h4>
-                            <ul class="small">
-                                <li>@docs-agent - Documentation writer</li>
-                                <li>@test-agent - QA engineer</li>
-                                <li>@lint-agent - Style fixer</li>
-                                <li>@api-agent - REST endpoint builder</li>
-                                <li>@security-agent - Security reviewer</li>
-                            </ul>
-                        </div>
                         <div>
                             <h4>What Makes a Great Agent:</h4>
                             <ul class="small">
@@ -627,9 +665,17 @@ When creating REST APIs:
                                 <li>Defined boundaries</li>
                             </ul>
                         </div>
+                        <div>
+                            <h4>Agent Ideas:</h4>
+                            <ul class="small">
+                                <li>@docs-agent - Documentation writer</li>
+                                <li>@test-agent - QA engineer</li>
+                                <li>@lint-agent - Style fixer</li>
+                            </ul>
+                        </div>
                     </div>
                     <aside class="notes">
-                        Custom agents are beyond the four built-in agents.
+                        Custom agents build upon the four built-in agents.
                         They're specialized assistants with narrow, focused expertise.
                         A test agent only writes tests. A docs agent only writes documentation.
                         This focus produces better results than a general-purpose agent.
@@ -638,8 +684,8 @@ When creating REST APIs:
                 </section>
 
                 <section>
-                    <h3>Agent Structure Example</h3>
-                    <pre><code class="language-markdown" style="font-size: 1em;">---
+                    <h3>Agent File Structure</h3>
+                    <pre><code class="language-markdown">---
 name: test-agent
 description: QA engineer who writes comprehensive tests
 ---
@@ -667,22 +713,43 @@ You are a quality software engineer who writes comprehensive tests.
                 </section>
 
                 <section>
-                    <h3>Team Benefits of Custom Assets</h3>
-                    <ul>
-                        <li><span class="accent">Enforce Standards</span> - Without constant vigilance</li>
-                        <li><span class="accent">Instant Onboarding</span> - New developers inherit team knowledge immediately</li>
-                        <li><span class="accent">Reduce Context Switching</span> - Common tasks become one-click operations</li>
-                        <li><span class="accent">Improve Code Review</span> - Less time on style, more on architecture</li>
-                    </ul>
-                    <div class="highlight-box">
-                        <p><strong>Key Principle:</strong> Custom assets only work if they're version-controlled and shared. Treat them like documentation that lives with your code.</p>
+                    <h3>Exercise: Create a Custom Agent</h3>
+                    <p>Create .github/agents/coding-expert.agent.md</p>
+                    <p>Ask Copilot to help you create an agent:</p>
+                    <pre><code class="language-markdown">
+Create a [python/java/c#] expert agent file. The agent should:
+- Write code following project code standards
+- Use type hints and docstrings
+- Write tests
+- Follow TDD and SOLID principles
+- Include specific commands to run tests and linters
+    </code></pre>
+                    <div class="two-column">
+                        <div>
+                            <p class="small"><strong>Great Agent Traits:</strong></p>
+                            <ul class="small">
+                                <li>Clear, focused role</li>
+                                <li>Specific commands</li>
+                                <li>Code examples</li>
+                                <li>Defined boundaries</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="small"><strong>Boundaries:</strong></p>
+                            <ul class="small">
+                                <li>✅ Always do</li>
+                                <li>⚠️ Ask first</li>
+                                <li>🚫 Never do</li>
+                            </ul>
+                        </div>
                     </div>
                     <aside class="notes">
-                        The real value comes from team-wide adoption.
-                        Custom assets sitting on one developer's machine don't help anyone.
-                        Store them in your repo, version control them, and iterate based on feedback.
-                        Start small: 2-3 instruction files and a prompt library for frequent tasks.
-                        Build incrementally as you identify patterns worth encoding.
+                        Custom agents are specialized assistants with narrow, focused expertise.
+                        A test agent only writes tests. A docs agent only writes documentation.
+                        This focus produces better results than a general-purpose agent.
+                        Start with one agent for your most common task and iterate based on team feedback.
+                        Pro tip: Use Copilot itself to generate agent files - it knows what makes a good agent!
+                        The three-tier boundary system is key: always do, ask first, never do.
                     </aside>
                 </section>
             </section>
@@ -919,6 +986,72 @@ You are a quality software engineer who writes comprehensive tests.
                     </aside>
                 </section>
             </section>
+
+            <!-- Section 5: Final Exercise -->
+            <section>
+                <section>
+                    <h3>Final Exercise: Security Vulnerability Automation</h3>
+                    <p><strong>Objective:</strong> Utilize <span class="accent">meta-prompting</span> and <span class="accent">custom agents</span> to automate a common task</p>
+                    
+                    <h4>The Scenario:</h4>
+                    <p class="small">Periodically, someone on your team checks <code>Nuclei</code> for security vulnerabilities. Let's use Copilot to automate this repetitive task and free you up for other interesting things.</p>
+                    
+                    <h4>Your Task:</h4>
+                    <p class="small">Ask Copilot to:</p>
+                    <ul class="small">
+                        <li>Create a GitHub action to periodically check <code>Nuclei</code> for new vulnerabilities</li>
+                        <li>Create an issue for each vulnerability found</li>
+                        <li>Assign each issue to your <code>GitHub Copilot Agent</code> for it to work on</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h3>Final Exercise: Security Vulnerability Automation</h3>
+                    <div>
+                        <h4>The Workflow:</h4>
+                        <p class="small">The agent creates a branch and PR, you guide it via comments in the PR, review, and merge when satisfied.</p>
+                        
+                        <h4>Execute this prompt:</h4>
+                        <pre><code class="language-markdown">create a prompt that will create a GitHub action 
+that will check nucleus for Critical/High 
+vulnerabilities on a daily basis and will create 
+GitHub issues for each vulnerabilities and assign 
+it to an agent to resolve.</code></pre>
+                    </div>
+                </section>
+                <section>
+                    <h3>Final Exercise: Security Vulnerability Automation</h3>                   
+                    <div style="margin-top: 1em;">
+                        <h4>What to Expect:</h4>
+                        <div class="comparison">
+                            <div class="comparison-item" style="background: rgba(0, 128, 255, 0.1); border-left: 5px solid #0080ff;">
+                                <p class="small"><strong>Gemini:</strong> Focuses on official Nuclei Action, GitHub CLI</p>
+                            </div>
+                            <div class="comparison-item" style="background: rgba(128, 0, 255, 0.1); border-left: 5px solid #8000ff;">
+                                <p class="small"><strong>Claude:</strong> Emphasizes comprehensive lifecycle management, adaptable approach</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1em;">
+                        <p class="small"><strong>Learning Objectives:</strong> Practice meta-prompting • Break down complex automation • Evaluate different AI approaches • Create reusable security automation</p>
+                        <p class="small"><strong>Next Steps:</strong> Try with different models → Use generated prompt to create the actual GitHub Action → Review for security best practices → Adapt pattern for other tools (Snyk, Trivy, Dependabot)</p>
+                    </div>
+                    
+                    <aside class="notes">
+                        This final exercise brings together meta-prompting and custom agents for real-world automation.
+                        The power here is that you're not just generating code - you're creating a self-sustaining security workflow.
+                        Different models provide different approaches - Gemini focuses on using official actions while Claude emphasizes comprehensive lifecycle management.
+                        The agent can autonomously create branches and PRs, you guide it via PR comments, review when ready, and merge.
+                        This pattern can be adapted for other security tools: Snyk, Trivy, Dependabot, or any repetitive security task.
+                        Real-world value: Automates repetitive security scanning so your team can focus on remediation strategy and high-impact security work.
+                        This is the future of development - AI handling the repetitive tasks while humans focus on creative problem-solving.
+                    </aside>
+                </section>
+
+            </section>
+
 
             <!-- Closing Slide -->
             <section>
